@@ -8,115 +8,119 @@ import os
 # Page config
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# CSS styling
+# Minimalist & elegant CSS styling
 st.markdown("""
 <style>
-    /* Hapus scroll vertikal di home */
+    /* Body & root container */
     body, html, #root > div:nth-child(1) {
-        overflow-y: hidden;
         height: 100vh;
+        overflow-y: auto;
+        background: #f9fafb;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
     }
 
-    /* Judul utama, lebih besar dan bold */
-    .menu-title, .feature-title {
-        font-size: 40px;       /* dibuat lebih besar */
+    /* Title */
+    .menu-title {
+        font-size: 3rem;
         font-weight: 700;
-        color: #0077b6;
-        margin-bottom: 15px;
-        user-select: none;
-        border-bottom: 4px solid #00b4d8;
-        padding-bottom: 8px;
+        color: #1a73e8;
         text-align: center;
-    }
-
-    /* Styling kotak instruksi */
-    .instruction-box {
-        background-color: #caf0f8;
-        border-left: 6px solid #023e8a;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-size: 16px;
-        line-height: 1.4;
-        margin-bottom: 25px;
+        margin: 1rem 0 2rem 0;
+        border-bottom: 3px solid #4285f4;
+        padding-bottom: 0.5rem;
         user-select: none;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
     }
 
-    /* Styling kotak upload */
+    /* Instruction box */
+    .instruction-box {
+        background-color: #e8f0fe;
+        border-left: 5px solid #1a73e8;
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        max-width: 650px;
+        margin: 0 auto 2.5rem auto;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        color: #202124;
+        user-select: none;
+    }
+
+    /* Upload container */
     div[data-testid="stFileUploader"] > div:first-child {
-        border: 3px dashed #0077b6 !important;
+        border: 2.5px dashed #1a73e8 !important;
         border-radius: 15px !important;
-        padding: 20px 15px !important;
-        background-color: #e0f7fa !important;
+        padding: 25px 20px !important;
+        background-color: #ffffff !important;
+        max-width: 600px;
+        margin: 0 auto 1.5rem auto;
         transition: background-color 0.3s ease;
         user-select: none;
-        max-width: 600px;
-        margin: 0 auto;
+    }
+    div[data-testid="stFileUploader"]:hover > div:first-child {
+        background-color: #f1f8ff !important;
     }
 
-    /* Label upload gambar */
+    /* Upload label */
     label[for="upload"] {
-        font-weight: 500;
-        font-size: 22px;
-        color: #0077b6;
-        margin-bottom: 2px;
+        font-weight: 600;
+        font-size: 1.3rem;
+        color: #1a73e8;
         display: block;
         text-align: center;
+        margin-bottom: 0.4rem;
         user-select: none;
     }
 
-    /* Caption gambar */
+    /* Image caption */
     .image-caption {
-        font-size: 14px;
-        color: #444;
         text-align: center;
-        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #555;
         font-style: italic;
+        margin-top: 0.5rem;
         user-select: none;
     }
 
-    /* Styling sidebar menu label */
-    .sidebar-menu-label {
-        font-weight: 900;
-        font-size: 26px;
-        color: #0077b6;
-        margin-bottom: 4px;
-        user-select: none;
-        padding-left: 15px;
-    }
-
-    /* Styling prediction results */
+    /* Prediction results */
     .prediction-success {
-        font-size: 20px;
-        color: #007f5f;
-        font-weight: 700;
-        margin-top: 15px;
         text-align: center;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #188038;
+        margin-top: 1.2rem;
         user-select: none;
     }
     .prediction-info {
-        font-size: 18px;
-        color: #023e8a;
-        font-weight: 600;
         text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #155ab3;
+        margin-top: 0.4rem;
         user-select: none;
     }
 
-    /* Kontainer utama */
+    /* Sidebar menu label */
+    .sidebar-menu-label {
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: #1a73e8;
+        margin-bottom: 1rem;
+        padding-left: 15px;
+        user-select: none;
+    }
+
+    /* Main container */
     .main {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 15px 25px;
+        max-width: 850px;
+        margin: 0 auto 3rem auto;
+        padding: 0 20px;
     }
 
-    /* Beri jarak antar pilihan radio di sidebar */
+    /* Spacing between radio buttons in sidebar */
     .css-1n76uvr {
-        margin-bottom: 10px !important;
+        margin-bottom: 0.7rem !important;
     }
-
-    
 </style>
 """, unsafe_allow_html=True)
 
@@ -157,7 +161,7 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar menu dengan label "Menu" yang rapi dan bold
+# Sidebar menu with clear label
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
@@ -203,8 +207,8 @@ if page == "Home":
                     st.warning("Model tidak yakin dengan prediksi. Coba gambar lain.")
                 else:
                     predicted_class = class_names[pred_index]
-                    st.markdown(f'<div class="prediction-success">✅ Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="prediction-info">🔎 Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
 
         except UnidentifiedImageError:
             st.error("File bukan gambar yang valid.")
