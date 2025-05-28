@@ -7,7 +7,7 @@ import os
 import tensorflow as tf
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Deteksi Tumor Otak", layout="wide", page_icon="")
+st.set_page_config(page_title="Deteksi Tumor Otak", layout="wide")
 
 # Path dan URL model
 model_path = 'brain_tumor_model.h5'
@@ -15,9 +15,9 @@ file_id = '18lLL4vDzXS9gdDXksyJhuY5MedaafKv7'
 url = f'https://drive.google.com/uc?id={file_id}'
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
-# Download model jika belum ada
+# Download model jika belum tersedia
 if not os.path.exists(model_path):
-    with st.spinner('Mengunduh model dari Google Drive...'):
+    with st.spinner('Mengunduh model...'):
         success = gdown.download(url, model_path, quiet=False)
         if not success:
             st.error("Gagal mengunduh model dari Google Drive.")
@@ -30,15 +30,15 @@ except Exception as e:
     st.error(f"Gagal memuat model: {e}")
     st.stop()
 
-# Navigasi
+# Sidebar navigasi
 menu = st.sidebar.radio("Menu", ["Home", "Info Tumor"])
 
 # ==================== HOME ====================
 if menu == "Home":
     st.title("Deteksi Jenis Tumor Otak dari Citra MRI")
-    st.markdown("Upload gambar MRI otak untuk mendeteksi jenis tumor menggunakan model deep learning.")
+    st.write("Silakan unggah gambar MRI otak untuk mengetahui jenis tumor menggunakan model deep learning.")
 
-    uploaded_file = st.file_uploader("Unggah gambar MRI (jpg/jpeg/png)...", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Unggah gambar MRI (jpg/jpeg/png)", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         try:
@@ -59,8 +59,8 @@ if menu == "Home":
                 st.warning("Gambar tidak dikenali sebagai MRI otak atau kualitas gambar rendah.")
             else:
                 predicted_class = class_names[pred_index]
-                st.success(f"Jenis tumor terdeteksi: **{predicted_class.upper()}**")
-                st.info(f"Confidence: **{confidence:.2f}**")
+                st.success(f"Jenis tumor terdeteksi: {predicted_class.upper()}")
+                st.write(f"Confidence: {confidence:.2f}")
 
         except UnidentifiedImageError:
             st.error("File yang diunggah bukan gambar yang valid.")
@@ -75,26 +75,27 @@ elif menu == "Info Tumor":
     if pilihan == "glioma":
         st.subheader("Glioma")
         st.write("""
-        Glioma adalah tumor yang berasal dari sel glial di otak atau sumsum tulang belakang. 
-        Jenis ini bisa bersifat jinak maupun ganas, namun banyak di antaranya bersifat agresif dan tumbuh cepat.
+            Glioma adalah tumor yang berasal dari sel glial di otak atau sumsum tulang belakang.
+            Glioma dapat bersifat jinak maupun ganas. Banyak kasus glioma bersifat agresif dan tumbuh cepat.
         """)
 
     elif pilihan == "meningioma":
         st.subheader("Meningioma")
         st.write("""
-        Meningioma adalah tumor yang berasal dari meninges, yaitu selaput yang melindungi otak dan sumsum tulang belakang.
-        Biasanya jinak dan tumbuh lambat, tetapi bisa menyebabkan gejala tergantung lokasi tumbuhnya.
+            Meningioma merupakan tumor yang tumbuh dari meninges, lapisan pelindung otak dan sumsum tulang belakang.
+            Umumnya bersifat jinak dan tumbuh lambat, tetapi tetap bisa menimbulkan gejala sesuai lokasi pertumbuhannya.
         """)
 
     elif pilihan == "pituitary":
-        st.subheader("Pituitary Tumor")
+        st.subheader("Tumor Pituitari")
         st.write("""
-        Tumor ini tumbuh di kelenjar pituitari (hipofisis), yang berperan penting dalam produksi hormon.
-        Bisa memengaruhi berbagai fungsi tubuh dan terkadang menyebabkan gangguan hormonal.
+            Tumor ini tumbuh di kelenjar pituitari (hipofisis) yang berperan dalam produksi berbagai hormon.
+            Dapat menyebabkan gangguan hormonal dan memengaruhi fungsi tubuh secara luas.
         """)
 
     elif pilihan == "notumor":
-        st.subheader("No Tumor")
+        st.subheader("Tidak Ada Tumor")
         st.write("""
-        Tidak terdeteksi adanya tumor dalam citra MRI otak. Namun, untuk diagnosis pasti tetap diperlukan pemeriksaan oleh dokter spesialis.
+            Tidak terdeteksi adanya tumor pada citra MRI otak yang diunggah.
+            Namun, hasil ini tidak menggantikan diagnosis profesional. Konsultasikan dengan dokter untuk pemeriksaan lebih lanjut.
         """)
