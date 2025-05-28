@@ -19,15 +19,46 @@ st.markdown("""
             font-size: 16px;
         }
 
-        /* Hapus margin atas bawaan Streamlit */
-        section.main > div {padding-top: 10px;}
-    </style>
+        .upload-label {
+            font-weight: bold;
+            margin-bottom: -5px;
+        }
 
+        section.main > div {
+            padding-top: 10px;
+        }
+
+        .prediction-success {
+            color: green;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .prediction-info {
+            font-size: 16px;
+        }
+
+        .menu-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu-label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Petunjuk penggunaan (instruction box di atas)
+st.markdown("""
     <div class="instructions-box">
         <ol>
             <li>Siapkan <b>gambar MRI otak</b> (format JPG, JPEG, atau PNG).</li>
             <li>Pastikan gambar jelas dan memperlihatkan struktur otak.</li>
-            <li>Klik <i>"Browse files"</i> atau seret gambar ke kotak unggah.</li>
+            <li>Klik <i>"Browse files"</i> atau drag and drop gambar ke kotak unggah.</li>
             <li>Sistem akan otomatis memeriksa validitas gambar.</li>
             <li>Model akan memprediksi jenis tumor jika ditemukan.</li>
             <li>Hasil prediksi akan menampilkan jenis tumor dan tingkat kepercayaan.</li>
@@ -72,30 +103,15 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar menu dengan label "Menu" yang rapi dan bold
+# Sidebar
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
-# =============== HOME PAGE ===============
+# ==================== HOME PAGE ====================
 if page == "Home":
-    st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Brain Tumor Detection dari Citra MRI</div>', unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="instruction-box">
-    <h4>📌 Tata Cara Penggunaan:</h4>
-    <ol>
-        <li>Siapkan <strong>gambar MRI otak</strong> (format JPG, JPEG, atau PNG).</li>
-        <li>Pastikan gambar jelas dan memperlihatkan struktur otak.</li>
-        <li>Klik <em>"Browse files"</em> atau seret gambar ke kotak unggah.</li>
-        <li>Sistem akan otomatis memeriksa validitas gambar.</li>
-        <li>Model akan memprediksi jenis tumor jika ditemukan.</li>
-        <li>Hasil prediksi akan menampilkan jenis tumor dan tingkat kepercayaan.</li>
-    </ol>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<label for="upload">Upload Gambar MRI</label>', unsafe_allow_html=True)
+    st.markdown('<div class="upload-label">Upload Gambar MRI</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"], key="upload")
 
     if uploaded_file is not None:
@@ -126,11 +142,8 @@ if page == "Home":
         except Exception as e:
             st.error(f"Kesalahan saat memproses gambar: {e}")
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# =============== TUMOR INFO PAGE ===============
+# ==================== TUMOR INFO PAGE ====================
 elif page == "Tumor Info":
-    st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Informasi Jenis Tumor Otak</div>', unsafe_allow_html=True)
 
     pilihan = st.selectbox("Pilih jenis tumor untuk informasi:", class_names)
@@ -147,5 +160,3 @@ elif page == "Tumor Info":
     elif pilihan == "notumor":
         st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
         st.write("Tidak ditemukan tumor pada gambar MRI. Selalu konsultasi dengan dokter untuk hasil pasti.")
-
-    st.markdown("</div>", unsafe_allow_html=True)
