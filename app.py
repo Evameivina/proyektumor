@@ -38,7 +38,7 @@ except Exception as e:
 # Label kelas model
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
-st.title("Prediksi Jenis Tumor Otak dari Citra MRI 🧠")
+st.title("Prediksi Jenis Tumor Otak dari Citra MRI")
 st.write("Upload gambar MRI otak yang jelas untuk memprediksi jenis tumornya.")
 
 uploaded_file = st.file_uploader("Pilih gambar MRI (jpg, jpeg, png)...", type=["jpg", "jpeg", "png"])
@@ -58,11 +58,15 @@ if uploaded_file is not None:
         pred_index = np.argmax(prediction)
         confidence = prediction[0][pred_index]
 
+        # Logika hasil prediksi berdasarkan confidence dan kelas
         if confidence < 0.6:
-            st.error("Gambar tidak dikenali atau kualitas gambar kurang baik untuk prediksi.")
+            st.info("Gambar tidak dikenali sebagai MRI otak yang valid atau kualitas gambar kurang baik. Prediksi: No tumor.")
         else:
             predicted_class = class_names[pred_index]
-            st.success(f"Jenis tumor terdeteksi: **{predicted_class}** dengan confidence {confidence:.2f}")
+            if predicted_class == 'notumor':
+                st.success(f"Tidak terdeteksi tumor pada gambar dengan confidence {confidence:.2f}")
+            else:
+                st.success(f"Jenis tumor terdeteksi: **{predicted_class}** dengan confidence {confidence:.2f}")
 
     except UnidentifiedImageError:
         st.error("File yang diupload bukan gambar yang valid.")
