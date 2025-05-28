@@ -1,118 +1,103 @@
-import streamlit as st  
+import streamlit as st
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 from tensorflow.keras.models import load_model
 import gdown
 import os
 
-# Page config
+# Page config dengan layout wide dan disable menu/sidebar biar maksimal
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# CSS styling
+# CSS styling no scroll, compact, rapat tanpa margin besar
 st.markdown("""
     <style>
-          /* Container utama tanpa jarak vertikal besar */
-          .main {
+        /* Reset margin/padding dan buat container penuh tanpa scroll */
+        html, body, #root > div:nth-child(1), .main, .block-container {
+            height: 100vh !important;  /* tinggi penuh viewport */
+            margin: 0; padding: 0;
+            overflow: hidden;  /* hilangkan scroll */
             background-color: #f9fcff;
+        }
+        /* Container utama dengan padding minimal */
+        .main {
             max-width: 800px;
-            margin: 20px auto 40px auto;  /* kurangi margin atas dan bawah */
-            padding: 20px 30px 30px 30px; /* kurangi padding */
+            margin: 10px auto 10px auto !important;
+            padding: 10px 20px 20px 20px !important;
             border-radius: 15px;
-            border: none !important;
-            box-shadow: none !important;
-          }
-        
-          /* Hilangkan border dan padding default Streamlit */
-          [data-testid="stAppViewContainer"] {
-            border: none !important;
-            box-shadow: none !important;
-            padding-top: 0 !important;
-            margin-top: 0 !important;
-          }
-        
-          /* Judul menu utama dan fitur */
-          .menu-title, .feature-title {
+        }
+        /* Hilangkan semua padding/margin dari app container */
+        [data-testid="stAppViewContainer"],
+        [data-testid="stVerticalBlock"],
+        .css-18e3th9 {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        /* Judul */
+        .menu-title {
             font-size: 26px;
             font-weight: 700;
             color: #0077b6;
-            margin-bottom: 20px;  /* lebih rapat */
-            user-select: none;
+            margin-bottom: 15px;
             border-bottom: 3px solid #00b4d8;
             padding-bottom: 6px;
-          }
-        
-          /* Sidebar label Menu - rapat ke bawah */
-          .sidebar-menu-label {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0077b6;
-            margin-bottom: 10px;  /* kecilkan jarak ke bawah */
             user-select: none;
-            border-bottom: 3px solid #00b4d8;
-            padding-bottom: 6px;
-            text-align: left;
-            padding-left: 0;
-          }
-        
-          /* Sidebar padding kiri kanan */
-          .css-1d391kg {
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
-          }
-        
-          /* Instruction box */
-          .instruction-box {
+        }
+        /* Instruction box */
+        .instruction-box {
             background-color: #caf0f8;
             border-left: 6px solid #023e8a;
-            padding: 15px 20px;
+            padding: 12px 15px;
             border-radius: 12px;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 30px;
-            user-select: none;
-          }
-        
-          /* Style uploader - rapat dan compact */
-          div[data-testid="stFileUploader"] > div:first-child {
+            font-size: 14px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            max-height: 170px;
+            overflow-y: auto; /* kalau panjang, scroll di box saja */
+        }
+        /* File uploader */
+        div[data-testid="stFileUploader"] > div:first-child {
             border: 3px dashed #0077b6 !important;
             border-radius: 15px !important;
-            padding: 25px 15px !important;  /* kurangi padding supaya nggak terlalu besar */
+            padding: 20px 10px !important;
             background-color: #e0f7fa !important;
-            transition: background-color 0.3s ease;
-            user-select: none;
             max-width: 600px;
             margin: 0 auto;
-          }
-        
-          div[data-testid="stFileUploader"] > div:first-child:hover {
-            background-color: #b3e5fc !important;
-          }
-        
-          /* Label uploader (Upload Gambar MRI) rapat ke uploader */
-          label[for="upload"] {
+            height: 120px;  /* fixed height supaya compact */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Label uploader rapat ke uploader */
+        label[for="upload"] {
             font-weight: 700;
             font-size: 20px;
             color: #0077b6;
-            margin-bottom: 6px;  /* kecilkan jarak margin bawah */
+            margin-bottom: 4px;
             display: block;
             text-align: center;
             user-select: none;
-          }
-        
-          /* Caption gambar */
-          .image-caption {
+        }
+        /* Caption gambar */
+        .image-caption {
             font-size: 14px;
             color: #444;
             text-align: center;
-            margin-top: 8px;  /* agak rapat ke bawah */
+            margin-top: 8px;
             font-style: italic;
             user-select: none;
-          }
+        }
+        /* Gambar yang diupload dibatasi tinggi */
+        .uploaded-image {
+            max-height: 300px;
+            width: auto;
+            margin: 0 auto;
+            display: block;
+        }
     </style>
-
 """, unsafe_allow_html=True)
 
-# Download dan load model
+# Load model dan setup (sama dengan yang kamu buat sebelumnya)
+
 model_path = 'brain_tumor_model.h5'
 file_id = '18lLL4vDzXS9gdDXksyJhuY5MedaafKv7'
 url = f'https://drive.google.com/uc?id={file_id}'
@@ -132,6 +117,8 @@ except Exception as e:
     st.stop()
 
 def is_probably_mri(image_pil):
+    # sama dengan fungsi kamu
+
     if image_pil.width < 100 or image_pil.height < 100:
         return False
     img_np = np.array(image_pil)
@@ -149,13 +136,14 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar menu dengan label "Menu" sudah rapi dan ke kiri
+# Sidebar dan page layout
+
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
-# =============== HOME PAGE ===============
 if page == "Home":
     st.markdown('<div class="main">', unsafe_allow_html=True)
+
     st.markdown('<div class="menu-title">Brain Tumor Detection dari Citra MRI</div>', unsafe_allow_html=True)
 
     st.markdown("""
@@ -178,8 +166,11 @@ if page == "Home":
     if uploaded_file is not None:
         try:
             image = Image.open(uploaded_file).convert('RGB')
-            st.image(image, caption='Gambar yang Diunggah', use_column_width=True)
-            
+            # tampilkan gambar dengan kelas css agar max heightnya terjaga
+            st.markdown(f'<img src="data:image/png;base64,{st.image_to_bytes(image)}" class="uploaded-image" />', unsafe_allow_html=True)
+            # fallback biasa:
+            st.image(image, caption='Gambar yang Diunggah', use_column_width=False, width=600)
+
             if not is_probably_mri(image):
                 st.warning("Gambar yang diunggah kemungkinan bukan citra MRI otak.")
             else:
@@ -205,7 +196,6 @@ if page == "Home":
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-# =============== TUMOR INFO PAGE ===============
 elif page == "Tumor Info":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Informasi Jenis Tumor Otak</div>', unsafe_allow_html=True)
@@ -219,10 +209,10 @@ elif page == "Tumor Info":
         st.markdown('<div class="feature-title"> Meningioma</div>', unsafe_allow_html=True)
         st.write("Tumor dari meninges, biasanya jinak, tapi dapat menekan otak tergantung lokasi.")
     elif pilihan == "pituitary":
-        st.markdown('<div class="feature-title"> Tumor Pituitari</div>', unsafe_allow_html=True)
-        st.write("Tumbuh di kelenjar pituitari yang mengatur hormon. Bisa mengganggu keseimbangan hormon.")
-    elif pilihan == "notumor":
+        st.markdown('<div class="feature-title"> Pituitary Tumor</div>', unsafe_allow_html=True)
+        st.write("Tumor di kelenjar pituitari, dapat memengaruhi hormon tubuh.")
+    else:
         st.markdown('<div class="feature-title"> Tidak Ada Tumor</div>', unsafe_allow_html=True)
-        st.write("Tidak ditemukan tumor pada gambar MRI. Selalu konsultasi dengan dokter untuk hasil pasti.")
+        st.write("Citra MRI tidak menunjukkan adanya tumor.")
 
     st.markdown("</div>", unsafe_allow_html=True)
