@@ -55,6 +55,7 @@ if menu == "Home":
             pred_index = np.argmax(prediction)
             confidence = prediction[0][pred_index]
 
+            # Validasi confidence
             if confidence < 0.6:
                 st.warning("Gambar tidak dikenali sebagai MRI otak atau kualitas gambar rendah.")
             else:
