@@ -10,116 +10,83 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
 # CSS styling
 st.markdown("""
-<style>
+st.markdown("""
+    <style>
+        .main {
+            background-color: #f9fcff;
+            max-width: 800px;
+            margin: 10px auto 30px auto;  /* Margin atas diperkecil dari 20px ke 10px */
+            padding: 15px 25px 25px 25px; /* Padding dikurangi */
+            border-radius: 15px;
+            border: none !important;
+            box-shadow: none !important;
+            min-height: 60vh; /* Biar konten cukup tinggi tanpa scroll */
+        }
 
-  /* Hilangkan border dan padding default Streamlit */
-  [data-testid="stAppViewContainer"] {
-    border: none !important;
-    box-shadow: none !important;
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-  }
+        /* Hilangkan padding & margin atas default Streamlit supaya menempel atas */
+        [data-testid="stAppViewContainer"] {
+            border: none !important;
+            box-shadow: none !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+        }
 
-  /* Judul halaman */
-  .menu-title {
-    font-size: 28px;
-    font-weight: 800;
-    color: #0077b6;
-    margin-bottom: 22px;
-    user-select: none;
-    border-bottom: 4px solid #00b4d8;
-    padding-bottom: 8px;
-  }
+        /* Judul menu utama dan fitur diperbesar */
+        .menu-title, .feature-title {
+            font-size: 34px;  /* Dari 26px jadi 34px */
+            font-weight: 900; /* Lebih tebal */
+            color: #0077b6;
+            margin-bottom: 15px; /* Margin lebih rapat */
+            user-select: none;
+            border-bottom: 4px solid #00b4d8;
+            padding-bottom: 8px;
+            text-align: center; /* Center biar lebih fokus */
+        }
 
-  /* Sidebar label menu */
-  .sidebar-menu-label {
-    font-size: 26px;
-    font-weight: 700;
-    color: #0077b6;
-    margin-bottom: 12px;
-    user-select: none;
-    border-bottom: 3px solid #00b4d8;
-    padding-bottom: 6px;
-    text-align: left;
-    padding-left: 0;
-  }
+        /* Instruction box dan uploader tetap kompak */
+        .instruction-box {
+            background-color: #caf0f8;
+            border-left: 6px solid #023e8a;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            user-select: none;
+        }
 
-  /* Sidebar padding kiri kanan */
-  .css-1d391kg {
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-  }
+        div[data-testid="stFileUploader"] > div:first-child {
+            border: 3px dashed #0077b6 !important;
+            border-radius: 15px !important;
+            padding: 20px 15px !important;
+            background-color: #e0f7fa !important;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-  /* Kotak instruksi */
-  .instruction-box {
-    background-color: #caf0f8;
-    border-left: 6px solid #023e8a;
-    padding: 18px 25px;
-    border-radius: 12px;
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 35px;
-    user-select: none;
-  }
+        label[for="upload"] {
+            font-weight: 700;
+            font-size: 22px; /* sedikit lebih besar */
+            color: #0077b6;
+            margin-bottom: 6px;
+            display: block;
+            text-align: center;
+            user-select: none;
+        }
 
-  /* Style uploader */
-  div[data-testid="stFileUploader"] > div:first-child {
-    border: 3px dashed #0077b6 !important;
-    border-radius: 15px !important;
-    padding: 30px 20px !important;
-    background-color: #e0f7fa !important;
-    transition: background-color 0.3s ease;
-    user-select: none;
-    max-width: 600px;
-    margin: 0 auto 25px auto;
-  }
-
-  div[data-testid="stFileUploader"] > div:first-child:hover {
-    background-color: #b3e5fc !important;
-  }
-
-  /* Label uploader */
-  label[for="upload"] {
-    font-weight: 700;
-    font-size: 22px;
-    color: #0077b6;
-    margin-bottom: 8px;
-    display: block;
-    text-align: center;
-    user-select: none;
-  }
-
-  /* Caption gambar */
-  .image-caption {
-    font-size: 14px;
-    color: #444;
-    text-align: center;
-    margin-top: 10px;
-    font-style: italic;
-    user-select: none;
-  }
-
-  /* Feedback prediksi */
-  .prediction-success {
-    background-color: #d0f0d0;
-    border-left: 6px solid #2d7a2d;
-    padding: 14px 20px;
-    border-radius: 12px;
-    font-size: 18px;
-    margin-top: 20px;
-    user-select: none;
-  }
-  .prediction-info {
-    background-color: #cce7f0;
-    border-left: 6px solid #0077b6;
-    padding: 12px 18px;
-    border-radius: 12px;
-    font-size: 16px;
-    margin-top: 10px;
-    user-select: none;
-  }
-</style>
+        .image-caption {
+            font-size: 14px;
+            color: #444;
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+            user-select: none;
+        }
+    </style>
 """, unsafe_allow_html=True)
+
 
 # Download dan load model
 model_path = 'brain_tumor_model.h5'
