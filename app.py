@@ -58,10 +58,10 @@ st.markdown("""
 
     /* Label upload gambar */
     label[for="upload"] {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 22px;
         color: #0077b6;
-        margin-bottom: 6px;
+        margin-bottom: 2px;
         display: block;
         text-align: center;
         user-select: none;
