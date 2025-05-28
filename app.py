@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st  
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 from tensorflow.keras.models import load_model
@@ -8,31 +8,69 @@ import os
 # Konfigurasi halaman
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# Tambahkan CSS untuk mempercantik tampilan
+# CSS untuk styling tampilan
 st.markdown("""
     <style>
         .main {
             background-color: #f4f9fd;
-            padding: 30px;
-            border-radius: 10px;
+            padding: 30px 40px 40px 40px;
+            border-radius: 12px;
+            max-width: 900px;
+            margin: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .menu-title {
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 34px;
+            font-weight: 700;
             color: #005f73;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
         }
         .feature-title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 600;
             color: #0a9396;
-            margin-top: 30px;
+            margin-top: 40px;
+            margin-bottom: 15px;
         }
         .instruction-box {
             background-color: #e0f7fa;
-            border-left: 5px solid #0288d1;
-            padding: 15px;
-            border-radius: 8px;
+            border-left: 6px solid #0288d1;
+            padding: 20px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 35px;
+        }
+        /* Style untuk uploader agar lebih jelas dan besar */
+        div[data-testid="fileUploader"] {
+            border: 2.5px dashed #0077b6 !important;
+            border-radius: 12px !important;
+            padding: 35px 25px !important;
+            background-color: #caf0f8 !important;
+            margin-bottom: 40px;
+            transition: border-color 0.3s ease;
+        }
+        div[data-testid="fileUploader"]:hover {
+            border-color: #0096c7 !important;
+            background-color: #ade8f4 !important;
+        }
+        /* Label Upload */
+        label[for="file"] > div > div {
+            font-size: 22px !important;
+            font-weight: 600 !important;
+            color: #0077b6 !important;
+            margin-bottom: 12px !important;
+        }
+        /* Caption gambar */
+        .uploaded-image-caption {
+            text-align: center;
+            font-size: 16px;
+            color: #023e8a;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -76,11 +114,11 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar pilihan halaman tanpa judul/tulisan navigasi
-menu = st.sidebar.radio("", ["🏠 Home", "📚 Tumor Info"])
+# Sidebar menu tanpa judul
+menu = st.sidebar.radio("", ["Home", "Tumor Info"])
 
 # ==================== HOME ====================
-if menu == "🏠 Home":
+if menu == "Home":
     st.markdown("<div class='main'>", unsafe_allow_html=True)
     st.markdown("<div class='menu-title'>Brain Tumor Detection dari Citra MRI</div>", unsafe_allow_html=True)
 
@@ -98,15 +136,16 @@ if menu == "🏠 Home":
     </div>
     """, unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("📤 Upload Gambar MRI", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Upload Gambar MRI", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         try:
             image = Image.open(uploaded_file).convert('RGB')
-            st.image(image, caption='🖼️ Gambar yang Diunggah', use_column_width=True)
+            st.image(image, caption='Gambar yang Diunggah', use_column_width=True)
+            st.markdown('<div class="uploaded-image-caption">Gambar yang Diunggah</div>', unsafe_allow_html=True)
             
             if not is_probably_mri(image):
-                st.warning("⚠️ Gambar tidak dikenali sebagai MRI otak.")
+                st.warning("Gambar tidak dikenali sebagai MRI otak.")
             else:
                 img = image.resize((224, 224))
                 img_array = np.array(img) / 255.0
@@ -120,34 +159,34 @@ if menu == "🏠 Home":
                     st.warning("❗ Model tidak cukup yakin dengan hasil prediksi.")
                 else:
                     predicted_class = class_names[pred_index]
-                    st.success(f"✅ Jenis tumor terdeteksi: **{predicted_class.upper()}**")
-                    st.info(f"🔍 Tingkat Kepercayaan: **{confidence:.2f}**")
+                    st.success(f"Jenis tumor terdeteksi: **{predicted_class.upper()}**")
+                    st.info(f"Tingkat Kepercayaan: **{confidence:.2f}**")
 
         except UnidentifiedImageError:
-            st.error("🚫 File yang diunggah bukan gambar yang valid.")
+            st.error("File yang diunggah bukan gambar yang valid.")
         except Exception as e:
-            st.error(f"❌ Terjadi kesalahan saat memproses gambar: {e}")
+            st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
     
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ==================== TUMOR INFO ====================
-elif menu == "📚 Tumor Info":
+elif menu == "Tumor Info":
     st.markdown("<div class='main'>", unsafe_allow_html=True)
     st.markdown("<div class='menu-title'>Informasi Jenis Tumor Otak</div>", unsafe_allow_html=True)
 
     pilihan = st.selectbox("🧬 Pilih jenis tumor untuk informasi lebih lanjut:", class_names)
 
     if pilihan == "glioma":
-        st.markdown("<div class='feature-title'>🧠 Glioma</div>", unsafe_allow_html=True)
+        st.markdown("<div class='feature-title'>Glioma</div>", unsafe_allow_html=True)
         st.write("Tumor berasal dari sel glial. Bisa jinak atau ganas, dan umumnya tumbuh cepat.")
     elif pilihan == "meningioma":
-        st.markdown("<div class='feature-title'>🧠 Meningioma</div>", unsafe_allow_html=True)
+        st.markdown("<div class='feature-title'>Meningioma</div>", unsafe_allow_html=True)
         st.write("Berasal dari meninges, biasanya jinak namun bisa menekan bagian otak tergantung lokasi.")
     elif pilihan == "pituitary":
-        st.markdown("<div class='feature-title'>🧠 Tumor Pituitari</div>", unsafe_allow_html=True)
+        st.markdown("<div class='feature-title'>Tumor Pituitari</div>", unsafe_allow_html=True)
         st.write("Tumbuh di kelenjar pituitari yang mengatur hormon. Bisa menyebabkan gangguan hormonal.")
     elif pilihan == "notumor":
-        st.markdown("<div class='feature-title'>🧠 Tidak Ada Tumor</div>", unsafe_allow_html=True)
+        st.markdown("<div class='feature-title'>Tidak Ada Tumor</div>", unsafe_allow_html=True)
         st.write("Tidak ditemukan tumor dalam gambar MRI. Namun, selalu konsultasikan hasil ini dengan profesional medis.")
 
     st.markdown("</div>", unsafe_allow_html=True)
