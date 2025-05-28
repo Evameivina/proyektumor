@@ -11,104 +11,104 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 # CSS styling
 st.markdown("""
     <style>
-  /* Container utama */
-  .main {
-    background-color: #f9fcff;
-    max-width: 800px;
-    margin: 30px auto 60px auto;
-    padding: 30px 40px 40px 40px;
-    border-radius: 15px;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  /* Menghilangkan border/shadow default Streamlit pada container utama */
-  [data-testid="stAppViewContainer"] {
-    border: none !important;
-    box-shadow: none !important;
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-  }
-
-  /* Judul menu utama dan fitur */
-  .menu-title, .feature-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: #0077b6;
-    margin-bottom: 25px;
-    user-select: none;
-    border-bottom: 3px solid #00b4d8;
-    padding-bottom: 6px;
-  }
-
-  /* Box instruksi */
-  .instruction-box {
-    background-color: #caf0f8;
-    border-left: 6px solid #023e8a;
-    padding: 20px 25px;
-    border-radius: 12px;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 40px;
-    user-select: none;
-  }
-
-  /* Style uploader */
-  div[data-testid="stFileUploader"] > div:first-child {
-    border: 3px dashed #0077b6 !important;
-    border-radius: 15px !important;
-    padding: 40px 20px !important;
-    background-color: #e0f7fa !important;
-    transition: background-color 0.3s ease;
-    user-select: none;
-    max-width: 600px;
-    margin: 0 auto;  /* supaya uploader center */
-  }
-
-  div[data-testid="stFileUploader"] > div:first-child:hover {
-    background-color: #b3e5fc !important;
-  }
-
-  /* Label uploader (Upload Gambar MRI) */
-  label[for="upload"] {
-    font-weight: 700;
-    font-size: 22px;
-    color: #0077b6;
-    margin-bottom: 10px;
-    display: block;
-    text-align: center;
-    user-select: none;
-  }
-
-  /* Caption gambar */
-  .image-caption {
-    font-size: 14px;
-    color: #444;
-    text-align: center;
-    margin-top: 12px;
-    font-style: italic;
-    user-select: none;
-  }
-
-  /* Sidebar label Menu */
-  .sidebar-menu-label {
-    font-size: 26px;
-    font-weight: 700;
-    color: #0077b6;
-    margin-bottom: 25px;
-    user-select: none;
-    border-bottom: 3px solid #00b4d8;
-    padding-bottom: 6px;
-    text-align: left;
-    padding-left: 0;
-  }
-
-  /* Sidebar padding */
-  .css-1d391kg {
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-  }
-</style>
+          /* Container utama tanpa jarak vertikal besar */
+          .main {
+            background-color: #f9fcff;
+            max-width: 800px;
+            margin: 20px auto 40px auto;  /* kurangi margin atas dan bawah */
+            padding: 20px 30px 30px 30px; /* kurangi padding */
+            border-radius: 15px;
+            border: none !important;
+            box-shadow: none !important;
+          }
+        
+          /* Hilangkan border dan padding default Streamlit */
+          [data-testid="stAppViewContainer"] {
+            border: none !important;
+            box-shadow: none !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+          }
+        
+          /* Judul menu utama dan fitur */
+          .menu-title, .feature-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0077b6;
+            margin-bottom: 20px;  /* lebih rapat */
+            user-select: none;
+            border-bottom: 3px solid #00b4d8;
+            padding-bottom: 6px;
+          }
+        
+          /* Sidebar label Menu - rapat ke bawah */
+          .sidebar-menu-label {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0077b6;
+            margin-bottom: 10px;  /* kecilkan jarak ke bawah */
+            user-select: none;
+            border-bottom: 3px solid #00b4d8;
+            padding-bottom: 6px;
+            text-align: left;
+            padding-left: 0;
+          }
+        
+          /* Sidebar padding kiri kanan */
+          .css-1d391kg {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+          }
+        
+          /* Instruction box */
+          .instruction-box {
+            background-color: #caf0f8;
+            border-left: 6px solid #023e8a;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            user-select: none;
+          }
+        
+          /* Style uploader - rapat dan compact */
+          div[data-testid="stFileUploader"] > div:first-child {
+            border: 3px dashed #0077b6 !important;
+            border-radius: 15px !important;
+            padding: 25px 15px !important;  /* kurangi padding supaya nggak terlalu besar */
+            background-color: #e0f7fa !important;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            max-width: 600px;
+            margin: 0 auto;
+          }
+        
+          div[data-testid="stFileUploader"] > div:first-child:hover {
+            background-color: #b3e5fc !important;
+          }
+        
+          /* Label uploader (Upload Gambar MRI) rapat ke uploader */
+          label[for="upload"] {
+            font-weight: 700;
+            font-size: 20px;
+            color: #0077b6;
+            margin-bottom: 6px;  /* kecilkan jarak margin bawah */
+            display: block;
+            text-align: center;
+            user-select: none;
+          }
+        
+          /* Caption gambar */
+          .image-caption {
+            font-size: 14px;
+            color: #444;
+            text-align: center;
+            margin-top: 8px;  /* agak rapat ke bawah */
+            font-style: italic;
+            user-select: none;
+          }
+    </style>
 
 """, unsafe_allow_html=True)
 
