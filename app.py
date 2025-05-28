@@ -11,24 +11,6 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 # CSS styling
 st.markdown("""
 <style>
-    .main {
-        background-color: #f9fcff;
-        max-width: 800px;
-        margin: 10px auto 30px auto;
-        padding: 15px 25px 25px 25px;
-        border-radius: 15px;
-        border: none !important;
-        box-shadow: none !important;
-        min-height: 60vh;
-    }
-
-    [data-testid="stAppViewContainer"] {
-        border: none !important;
-        box-shadow: none !important;
-        padding-top: 0 !important;
-        margin-top: 0 !important;
-    }
-
     .menu-title, .feature-title {
         font-size: 34px;
         font-weight: 900;
