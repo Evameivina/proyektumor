@@ -82,7 +82,7 @@ st.markdown("""
         font-weight: 900;
         font-size: 26px;
         color: #0077b6;
-        margin-bottom: 10px;
+        margin-bottom: 4px;
         user-select: none;
         padding-left: 15px;
     }
@@ -109,22 +109,6 @@ st.markdown("""
         max-width: 900px;
         margin: 0 auto;
         padding: 15px 25px;
-    }
-    
-    /* Atur posisi atas sidebar dan hilangkan jarak kosong */
-    section[data-testid="stSidebar"] {
-        padding-top: 10px !important;
-    }
-
-    /* Dekatkan menu radio dengan label */
-    .css-1c7y2kd {
-        margin-top: -5px !important;
-    }
-
-    /* Hilangkan scroll dan spasi atas berlebih di halaman utama */
-    .css-18ni7ap.e8zbici2 {
-        padding-top: 10px !important;
-        overflow-y: hidden !important;
     }
     
 </style>
