@@ -1,3 +1,6 @@
+boleh coba nih
+tambahin di code sini 
+
 import streamlit as st  
 import numpy as np
 from PIL import Image, UnidentifiedImageError
@@ -10,60 +13,107 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
 # CSS styling
 st.markdown("""
-    <style>
-        .instructions-box {
-            background-color: #d4f0f9;
-            padding: 10px 18px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
+<style>
+    /* Hapus scroll vertikal di home */
+    body, html, #root > div:nth-child(1) {
+        overflow-y: hidden;
+        height: 100vh;
+    }
 
-        .upload-label {
-            font-weight: bold;
-            margin-bottom: -5px;
-        }
+    /* Judul utama, lebih besar dan bold */
+    .menu-title, .feature-title {
+        font-size: 40px;       /* dibuat lebih besar */
+        font-weight: 700;
+        color: #0077b6;
+        margin-bottom: 15px;
+        user-select: none;
+        border-bottom: 4px solid #00b4d8;
+        padding-bottom: 8px;
+        text-align: center;
+    }
 
-        section.main > div {
-            padding-top: 10px;
-        }
+    /* Styling kotak instruksi */
+    .instruction-box {
+        background-color: #caf0f8;
+        border-left: 6px solid #023e8a;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        line-height: 1.4;
+        margin-bottom: 25px;
+        user-select: none;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        .prediction-success {
-            color: green;
-            font-size: 20px;
-            margin-top: 20px;
-        }
+    /* Styling kotak upload */
+    div[data-testid="stFileUploader"] > div:first-child {
+        border: 3px dashed #0077b6 !important;
+        border-radius: 15px !important;
+        padding: 20px 15px !important;
+        background-color: #e0f7fa !important;
+        transition: background-color 0.3s ease;
+        user-select: none;
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-        .prediction-info {
-            font-size: 16px;
-        }
+    /* Label upload gambar */
+    label[for="upload"] {
+        font-weight: 500;
+        font-size: 22px;
+        color: #0077b6;
+        margin-bottom: 2px;
+        display: block;
+        text-align: center;
+        user-select: none;
+    }
 
-        .menu-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+    /* Caption gambar */
+    .image-caption {
+        font-size: 14px;
+        color: #444;
+        text-align: center;
+        margin-top: 8px;
+        font-style: italic;
+        user-select: none;
+    }
 
-        .sidebar-menu-label {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    </style>
-""", unsafe_allow_html=True)
+    /* Styling sidebar menu label */
+    .sidebar-menu-label {
+        font-weight: 900;
+        font-size: 26px;
+        color: #0077b6;
+        margin-bottom: 10px;
+        user-select: none;
+        padding-left: 15px;
+    }
 
-# Petunjuk penggunaan (instruction box di atas)
-st.markdown("""
-    <div class="instructions-box">
-        <ol>
-            <li>Siapkan <b>gambar MRI otak</b> (format JPG, JPEG, atau PNG).</li>
-            <li>Pastikan gambar jelas dan memperlihatkan struktur otak.</li>
-            <li>Klik <i>"Browse files"</i> atau drag and drop gambar ke kotak unggah.</li>
-            <li>Sistem akan otomatis memeriksa validitas gambar.</li>
-            <li>Model akan memprediksi jenis tumor jika ditemukan.</li>
-            <li>Hasil prediksi akan menampilkan jenis tumor dan tingkat kepercayaan.</li>
-        </ol>
-    </div>
+    /* Styling prediction results */
+    .prediction-success {
+        font-size: 20px;
+        color: #007f5f;
+        font-weight: 700;
+        margin-top: 15px;
+        text-align: center;
+        user-select: none;
+    }
+    .prediction-info {
+        font-size: 18px;
+        color: #023e8a;
+        font-weight: 600;
+        text-align: center;
+        user-select: none;
+    }
+
+    /* Kontainer utama */
+    .main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 15px 25px;
+    }
+</style>
 """, unsafe_allow_html=True)
 
 # Download dan load model
@@ -103,15 +153,30 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar
+# Sidebar menu dengan label "Menu" yang rapi dan bold
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
-# ==================== HOME PAGE ====================
+# =============== HOME PAGE ===============
 if page == "Home":
+    st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Brain Tumor Detection dari Citra MRI</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="upload-label">Upload Gambar MRI</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="instruction-box">
+    <h4>📌 Tata Cara Penggunaan:</h4>
+    <ol>
+        <li>Siapkan <strong>gambar MRI otak</strong> (format JPG, JPEG, atau PNG).</li>
+        <li>Pastikan gambar jelas dan memperlihatkan struktur otak.</li>
+        <li>Klik <em>"Browse files"</em> atau seret gambar ke kotak unggah.</li>
+        <li>Sistem akan otomatis memeriksa validitas gambar.</li>
+        <li>Model akan memprediksi jenis tumor jika ditemukan.</li>
+        <li>Hasil prediksi akan menampilkan jenis tumor dan tingkat kepercayaan.</li>
+    </ol>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<label for="upload">Upload Gambar MRI</label>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"], key="upload")
 
     if uploaded_file is not None:
@@ -142,8 +207,11 @@ if page == "Home":
         except Exception as e:
             st.error(f"Kesalahan saat memproses gambar: {e}")
 
-# ==================== TUMOR INFO PAGE ====================
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# =============== TUMOR INFO PAGE ===============
 elif page == "Tumor Info":
+    st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Informasi Jenis Tumor Otak</div>', unsafe_allow_html=True)
 
     pilihan = st.selectbox("Pilih jenis tumor untuk informasi:", class_names)
@@ -160,3 +228,5 @@ elif page == "Tumor Info":
     elif pilihan == "notumor":
         st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
         st.write("Tidak ditemukan tumor pada gambar MRI. Selalu konsultasi dengan dokter untuk hasil pasti.")
+
+    st.markdown("</div>", unsafe_allow_html=True)
