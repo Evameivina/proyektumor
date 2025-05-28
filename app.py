@@ -80,7 +80,7 @@ if menu == "Home":
             st.image(image, caption='Gambar yang Diunggah', use_column_width=True)
             
             if not is_probably_mri(image):
-                st.warning("Gambar tidak dikenali sebagai MRI otak atau kualitas gambar rendah.")
+                st.warning("Gambar tidak dikenali sebagai MRI otak")
             else:
                 # Preprocessing
                 img = image.resize((224, 224))
