@@ -193,7 +193,7 @@ if page == "Home":
             st.image(image, caption='Gambar yang Diunggah', use_column_width=True)
 
             if not is_probably_mri(image):
-                st.warning("Gambar yang diunggah kemungkinan bukan citra MRI otak.")
+                st.warning("Gambar yang diunggah bukan citra MRI otak.")
             else:
                 img = image.resize((224, 224))
                 img_array = np.array(img) / 255.0
