@@ -110,6 +110,12 @@ st.markdown("""
         margin: 0 auto;
         padding: 15px 25px;
     }
+
+    /* Beri jarak antar pilihan radio di sidebar */
+    .css-1n76uvr {
+        margin-bottom: 10px !important;
+    }
+
     
 </style>
 """, unsafe_allow_html=True)
