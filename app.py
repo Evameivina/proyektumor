@@ -11,17 +11,39 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 # CSS styling
 st.markdown("""
 <style>
-    .menu-title, .feature-title {
-        font-size: 34px;
+    /* Memperbesar judul utama */
+    .menu-title {
+        font-size: 48px !important;   /* lebih besar dari 34px */
         font-weight: 900;
         color: #0077b6;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         user-select: none;
         border-bottom: 4px solid #00b4d8;
-        padding-bottom: 8px;
+        padding-bottom: 10px;
         text-align: center;
+        margin-top: 0px !important;   /* hilangkan jarak atas */
     }
 
+    /* Kontainer utama agar tinggi maksimal 100vh (tinggi layar) dan tidak scroll */
+    .main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 15px 25px 25px 25px;
+        border-radius: 15px;
+        min-height: 100vh;          /* supaya tinggi penuh layar */
+        overflow: hidden;           /* hilangkan scroll vertikal di kontainer */
+        box-sizing: border-box;
+    }
+
+    /* Hilangkan scroll utama di body dan html */
+    html, body, #root, .appview-container, .main {
+        overflow-y: hidden !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Instruksi kotak tetap bagus */
     .instruction-box {
         background-color: #caf0f8;
         border-left: 6px solid #023e8a;
@@ -33,6 +55,7 @@ st.markdown("""
         user-select: none;
     }
 
+    /* Styling uploader */
     div[data-testid="stFileUploader"] > div:first-child {
         border: 3px dashed #0077b6 !important;
         border-radius: 15px !important;
@@ -64,6 +87,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 # Download dan load model
 model_path = 'brain_tumor_model.h5'
