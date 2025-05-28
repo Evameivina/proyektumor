@@ -1,12 +1,12 @@
 import streamlit as st
 import numpy as np
-from PIL import Image, UnidentifiedImageError
+from PIL import Image
+import cv2
 from tensorflow.keras.models import load_model
 import gdown
 import os
-import tensorflow as tf
 
-# Konfigurasi halaman
+# Config halaman
 st.set_page_config(page_title="Deteksi Tumor Otak", layout="wide")
 
 # Path dan URL model
@@ -14,61 +14,72 @@ model_path = 'brain_tumor_model.h5'
 file_id = '18lLL4vDzXS9gdDXksyJhuY5MedaafKv7'
 url = f'https://drive.google.com/uc?id={file_id}'
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
+confidence_threshold = 0.6
 
-# Download model jika belum tersedia
+# Download model kalau belum ada
 if not os.path.exists(model_path):
-    with st.spinner('Mengunduh model...'):
-        success = gdown.download(url, model_path, quiet=False)
-        if not success:
-            st.error("Gagal mengunduh model dari Google Drive.")
-            st.stop()
+    with st.spinner("Mengunduh model..."):
+        gdown.download(url, model_path, quiet=False)
 
 # Load model
-try:
-    model = load_model(model_path)
-except Exception as e:
-    st.error(f"Gagal memuat model: {e}")
-    st.stop()
+model = load_model(model_path)
 
-# Sidebar navigasi
+def is_probably_mri(img_pil):
+    img = np.array(img_pil)
+    if img is None or img.shape[0] < 100 or img.shape[1] < 100:
+        return False
+
+    # Jika RGB
+    if len(img.shape) == 3 and img.shape[2] == 3:
+        b, g, r = cv2.split(img)
+        stds = [np.std(c) for c in (b, g, r)]
+        min_std, max_std = min(stds), max(stds)
+        ratio = min_std / (max_std + 1e-6)
+        if ratio > 0.9:
+            return True
+
+        mean_total = np.mean(img)
+        green_ratio = np.mean(g) / (mean_total + 1e-6)
+        if green_ratio > 0.5:
+            return False
+
+    # Kalau grayscale 2D
+    if len(img.shape) == 2:
+        return True
+
+    return True
+
+# Sidebar menu
 menu = st.sidebar.radio("Menu", ["Home", "Info Tumor"])
 
-# ==================== HOME ====================
 if menu == "Home":
     st.title("Deteksi Jenis Tumor Otak dari Citra MRI")
-    st.write("Silakan unggah gambar MRI otak untuk mengetahui jenis tumor menggunakan model deep learning.")
+    st.write("Unggah gambar MRI otak (jpg/jpeg/png) untuk mengetahui jenis tumor menggunakan model deep learning.")
 
-    uploaded_file = st.file_uploader("Unggah gambar MRI (jpg/jpeg/png)", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Unggah gambar MRI otak", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        try:
-            image = Image.open(uploaded_file).convert('RGB')
-            st.image(image, caption='Gambar yang Diunggah', use_column_width=True)
+        image = Image.open(uploaded_file).convert('RGB')
+        st.image(image, caption="Gambar yang diunggah", use_column_width=True)
 
-            # Preprocessing
-            img = image.resize((224, 224))
-            img_array = np.array(img) / 255.0
+        if not is_probably_mri(image):
+            st.warning("Gambar ini kemungkinan bukan citra MRI otak. Mohon unggah gambar MRI otak yang valid.")
+        else:
+            img_resized = image.resize((224, 224))
+            img_array = np.array(img_resized) / 255.0
             img_array = np.expand_dims(img_array, axis=0)
 
-            # Prediksi
             prediction = model.predict(img_array)
             pred_index = np.argmax(prediction)
             confidence = prediction[0][pred_index]
 
-            # Validasi confidence
-            if confidence < 0.6:
-                st.warning("Gambar tidak dikenali sebagai MRI otak atau kualitas gambar rendah.")
+            if confidence < confidence_threshold:
+                st.warning("Model tidak yakin dengan prediksi untuk gambar ini.")
             else:
-                predicted_class = class_names[pred_index]
-                st.success(f"Jenis tumor terdeteksi: {predicted_class.upper()}")
+                pred_class = class_names[pred_index]
+                st.success(f"Prediksi tumor: {pred_class.upper()}")
                 st.write(f"Confidence: {confidence:.2f}")
 
-        except UnidentifiedImageError:
-            st.error("File yang diunggah bukan gambar yang valid.")
-        except Exception as e:
-            st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
-
-# ==================== INFO TUMOR ====================
 elif menu == "Info Tumor":
     st.title("Informasi Jenis Tumor Otak")
     pilihan = st.selectbox("Pilih jenis tumor untuk melihat penjelasan:", class_names)
