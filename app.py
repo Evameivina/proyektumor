@@ -11,15 +11,6 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 # CSS styling
 st.markdown("""
 <style>
-  /* Container utama */
-  .main {
-    background-color: #f9fcff;
-    max-width: 800px;
-    margin: 30px auto 50px auto;
-    padding: 30px 35px 35px 35px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
 
   /* Hilangkan border dan padding default Streamlit */
   [data-testid="stAppViewContainer"] {
