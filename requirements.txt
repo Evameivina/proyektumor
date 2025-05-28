@@ -5,5 +5,6 @@ pandas
 matplotlib
 seaborn
 opencv-python
+gdown
 Pillow
 numpy==1.24.4
