@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st 
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 from tensorflow.keras.models import load_model
@@ -76,9 +76,8 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar navigasi
-st.sidebar.markdown("<h2 style='color:#0a9396;'>🧠 MENU</h2>", unsafe_allow_html=True)
-menu = st.sidebar.radio("Navigasi", ["🏠 Home", "📚 Tumor Info"])
+# Sidebar pilihan halaman tanpa judul/tulisan navigasi
+menu = st.sidebar.radio("", ["🏠 Home", "📚 Tumor Info"])
 
 # ==================== HOME ====================
 if menu == "🏠 Home":
