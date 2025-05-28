@@ -61,7 +61,7 @@ st.markdown("""
         font-weight: 500;
         font-size: 22px;
         color: #0077b6;
-        margin-bottom: 2px;
+        margin-bottom: 12px;  /* Tambahkan atau perbesar jarak bawah */
         display: block;
         text-align: center;
         user-select: none;
