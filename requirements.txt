@@ -1,0 +1,10 @@
+streamlit
+gdown
+numpy==1.24.4
+pandas
+matplotlib
+seaborn
+opencv-python
+Pillow
+scikit-learn
+tensorflow==2.18.0
