@@ -1,3 +1,5 @@
+pip>=25.1.1
+
 absl-py==2.3.0
 altair==5.5.0
 astunparse==1.6.3
@@ -33,9 +35,9 @@ libclang==18.1.1
 markdown==3.8
 markupsafe==3.0.2
 matplotlib==3.10.3
-ml-dtypes==0.1.0         # ✅ DITURUNKAN dari 0.2.0
+ml-dtypes==0.1.0
 narwhals==1.41.0
-numpy==1.24.3            # ✅ DITURUNKAN dari 2.2.6
+numpy==1.24.3
 oauthlib==3.2.2
 opencv-python==4.11.0.86
 opt-einsum==3.4.0
@@ -75,7 +77,7 @@ threadpoolctl==3.6.0
 toml==0.10.2
 tornado==6.5.1
 tqdm==4.67.1
-typing-extensions==4.13.2
+typing-extensions
 tzdata==2025.2
 urllib3==2.4.0
 watchdog==6.0.0
