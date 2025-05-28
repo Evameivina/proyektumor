@@ -11,39 +11,25 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 # CSS styling
 st.markdown("""
 <style>
-    /* Memperbesar judul utama */
-    .menu-title {
-        font-size: 48px !important;   /* lebih besar dari 34px */
+    /* Hapus scroll vertikal di home */
+    body, html, #root > div:nth-child(1) {
+        overflow-y: hidden;
+        height: 100vh;
+    }
+
+    /* Judul utama, lebih besar dan bold */
+    .menu-title, .feature-title {
+        font-size: 48px;       /* dibuat lebih besar */
         font-weight: 900;
         color: #0077b6;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         user-select: none;
         border-bottom: 4px solid #00b4d8;
-        padding-bottom: 10px;
+        padding-bottom: 8px;
         text-align: center;
-        margin-top: 0px !important;   /* hilangkan jarak atas */
     }
 
-    /* Kontainer utama agar tinggi maksimal 100vh (tinggi layar) dan tidak scroll */
-    .main {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 15px 25px 25px 25px;
-        border-radius: 15px;
-        min-height: 100vh;          /* supaya tinggi penuh layar */
-        overflow: hidden;           /* hilangkan scroll vertikal di kontainer */
-        box-sizing: border-box;
-    }
-
-    /* Hilangkan scroll utama di body dan html */
-    html, body, #root, .appview-container, .main {
-        overflow-y: hidden !important;
-        height: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Instruksi kotak tetap bagus */
+    /* Styling kotak instruksi */
     .instruction-box {
         background-color: #caf0f8;
         border-left: 6px solid #023e8a;
@@ -53,9 +39,12 @@ st.markdown("""
         line-height: 1.4;
         margin-bottom: 25px;
         user-select: none;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    /* Styling uploader */
+    /* Styling kotak upload */
     div[data-testid="stFileUploader"] > div:first-child {
         border: 3px dashed #0077b6 !important;
         border-radius: 15px !important;
@@ -67,6 +56,7 @@ st.markdown("""
         margin: 0 auto;
     }
 
+    /* Label upload gambar */
     label[for="upload"] {
         font-weight: 700;
         font-size: 22px;
@@ -77,6 +67,7 @@ st.markdown("""
         user-select: none;
     }
 
+    /* Caption gambar */
     .image-caption {
         font-size: 14px;
         color: #444;
@@ -85,9 +76,42 @@ st.markdown("""
         font-style: italic;
         user-select: none;
     }
+
+    /* Styling sidebar menu label */
+    .sidebar-menu-label {
+        font-weight: 900;
+        font-size: 26px;
+        color: #0077b6;
+        margin-bottom: 10px;
+        user-select: none;
+        padding-left: 15px;
+    }
+
+    /* Styling prediction results */
+    .prediction-success {
+        font-size: 20px;
+        color: #007f5f;
+        font-weight: 700;
+        margin-top: 15px;
+        text-align: center;
+        user-select: none;
+    }
+    .prediction-info {
+        font-size: 18px;
+        color: #023e8a;
+        font-weight: 600;
+        text-align: center;
+        user-select: none;
+    }
+
+    /* Kontainer utama */
+    .main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 15px 25px;
+    }
 </style>
 """, unsafe_allow_html=True)
-
 
 # Download dan load model
 model_path = 'brain_tumor_model.h5'
@@ -126,7 +150,7 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar menu dengan label "Menu" yang rapi dan ke kiri
+# Sidebar menu dengan label "Menu" yang rapi dan bold
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
