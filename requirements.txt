@@ -1,10 +1,10 @@
 streamlit
 gdown
-numpy==1.24.4
+numpy==1.26.4
 pandas
 matplotlib
 seaborn
 opencv-python
 Pillow
 scikit-learn
-tensorflow==2.18.0
+tensorflow==2.13.0
