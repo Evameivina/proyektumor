@@ -110,6 +110,23 @@ st.markdown("""
         margin: 0 auto;
         padding: 15px 25px;
     }
+    
+    /* Atur posisi atas sidebar dan hilangkan jarak kosong */
+    section[data-testid="stSidebar"] {
+        padding-top: 10px !important;
+    }
+
+    /* Dekatkan menu radio dengan label */
+    .css-1c7y2kd {
+        margin-top: -5px !important;
+    }
+
+    /* Hilangkan scroll dan spasi atas berlebih di halaman utama */
+    .css-18ni7ap.e8zbici2 {
+        padding-top: 10px !important;
+        overflow-y: hidden !important;
+    }
+    
 </style>
 """, unsafe_allow_html=True)
 
