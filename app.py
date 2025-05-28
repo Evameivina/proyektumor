@@ -19,27 +19,19 @@ st.markdown("""
             padding: 30px 40px 40px 40px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 1.5px solid #90caf9;
+            /* border dihapus supaya tidak ada box di atas judul */
+            /* border: 1.5px solid #90caf9; */
         }
-        /* Judul menu utama */
-        .menu-title {
-            font-size: 36px;
+        /* Judul menu utama & fitur */
+        .menu-title, .feature-title {
+            font-size: 26px;
             font-weight: 700;
             color: #0077b6;
-            text-align: center;
-            margin-bottom: 30px;
             user-select: none;
-        }
-        /* Judul sub fitur */
-        .feature-title {
-            font-size: 26px;
-            font-weight: 600;
-            color: #0096c7;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            user-select: none;
+            margin-bottom: 25px;
+            /* border bawah supaya sama styling */
             border-bottom: 3px solid #00b4d8;
-            padding-bottom: 5px;
+            padding-bottom: 6px;
         }
         /* Box tata cara */
         .instruction-box {
@@ -56,7 +48,7 @@ st.markdown("""
         div[data-testid="stFileUploader"] > div:first-child {
             border: 3px dashed #0077b6 !important;
             border-radius: 15px !important;
-            padding: 50px !important;
+            padding: 40px !important;  /* dikurangi dari 50px jadi 40px */
             background-color: #e0f7fa !important;
             transition: background-color 0.3s ease;
             user-select: none;
@@ -70,7 +62,7 @@ st.markdown("""
             font-size: 24px;
             color: #0077b6;
             display: block;
-            margin-bottom: 20px;
+            margin-bottom: 8px;  /* dikurangi dari 20px jadi 8px supaya lebih rapat */
             text-align: center;
             user-select: none;
         }
@@ -83,14 +75,22 @@ st.markdown("""
             font-style: italic;
             user-select: none;
         }
-        /* Sidebar "Menu" label */
+        /* Sidebar "Menu" label - samakan dengan fitur, tapi ratakan kiri */
         .sidebar-menu-label {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: #0077b6;
-            margin-bottom: 10px;
+            margin-bottom: 25px;
             user-select: none;
-            text-align: center;
+            border-bottom: 3px solid #00b4d8;
+            padding-bottom: 6px;
+            text-align: left;
+            padding-left: 0;
+        }
+        /* Sidebar padding agar tulisan Menu nempel ke kiri */
+        .css-1d391kg {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -132,7 +132,7 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar menu dengan label "Menu"
+# Sidebar menu dengan label "Menu" sudah rapi dan ke kiri
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
@@ -164,7 +164,7 @@ if page == "Home":
             st.image(image, caption='Gambar yang Diunggah', use_column_width=True)
             
             if not is_probably_mri(image):
-                st.warning("Gambar yang diunggah bukan citra MRI otak.")
+                st.warning("Gambar yang diunggah kemungkinan bukan citra MRI otak.")
             else:
                 img = image.resize((224, 224))
                 img_array = np.array(img) / 255.0
