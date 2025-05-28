@@ -10,7 +10,6 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
 # CSS styling
 st.markdown("""
-st.markdown("""
     <style>
         .instructions-box {
             background-color: #d4f0f9;
