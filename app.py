@@ -117,12 +117,22 @@ st.markdown("""
         padding: 0 20px;
     }
 
-    /* Spacing antar opsi radio di sidebar agar jaraknya sama */
-    .stRadio > div > label {
-        margin-bottom: 1.5rem !important;  /* jarak antar opsi menu radio */
-        display: block;
-        user-select: none;
-    }
+    /* Container untuk tiap opsi radio di sidebar */
+.stRadio > div > div {
+    display: flex;             /* buat kotak dan teks sejajar horizontal */
+    align-items: center;       /* rata tengah vertikal */
+    margin-bottom: 1.3rem;     /* jarak antar opsi radio */
+    user-select: none;
+}
+
+/* Label opsi radio (teks) */
+.stRadio > div > div > label {
+    margin-left: 0.5rem;       /* jarak antara kotak dan teks */
+    cursor: pointer;
+    font-weight: 600;
+    color: #1a73e8;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
