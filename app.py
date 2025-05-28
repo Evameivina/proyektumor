@@ -31,7 +31,7 @@ except Exception as e:
     st.stop()
 
 # Navigasi
-menu = st.sidebar.radio("Navigasi", ["🏠 Home", "🧬 Info Tumor", "ℹ️ Tentang Aplikasi"])
+menu = st.sidebar.radio("Navigasi", ["🏠 Home", "📖 Info Tumor", "ℹ️ Tentang Aplikasi"])
 
 # ==================== HOME ====================
 if menu == "🏠 Home":
@@ -68,35 +68,60 @@ if menu == "🏠 Home":
             st.error(f"❌ Terjadi kesalahan saat memproses gambar: {e}")
 
 # ==================== INFO TUMOR ====================
-elif menu == "🧬 Info Tumor":
+elif menu == "📖 Info Tumor":
     st.title("📚 Informasi Jenis Tumor Otak")
+    pilihan = st.selectbox("Pilih jenis tumor untuk melihat penjelasan:", class_names)
 
-    info_data = {
-        "Glioma": "Tumor yang berasal dari sel glial di otak. Biasanya bersifat ganas dan tumbuh cepat.",
-        "Meningioma": "Tumor yang berasal dari meninges, selaput pelindung otak. Umumnya jinak dan tumbuh lambat.",
-        "Pituitary": "Tumor di kelenjar pituitari, yang dapat memengaruhi produksi hormon. Bisa jinak atau ganas.",
-        "No Tumor": "Tidak terdeteksi adanya tumor otak dalam citra MRI yang diberikan."
-    }
+    if pilihan == "glioma":
+        st.subheader("🧬 Glioma")
+        st.write("""
+        Glioma adalah tumor yang berasal dari sel glial di otak atau sumsum tulang belakang. 
+        Jenis ini bisa bersifat jinak maupun ganas, namun banyak di antaranya bersifat agresif dan tumbuh cepat.
+        """)
 
-    for jenis, deskripsi in info_data.items():
-        st.subheader(f"🔹 {jenis}")
-        st.write(deskripsi)
+    elif pilihan == "meningioma":
+        st.subheader("🧬 Meningioma")
+        st.write("""
+        Meningioma adalah tumor yang berasal dari meninges, yaitu selaput yang melindungi otak dan sumsum tulang belakang.
+        Biasanya jinak dan tumbuh lambat, tetapi bisa menyebabkan gejala tergantung lokasi tumbuhnya.
+        """)
+
+    elif pilihan == "pituitary":
+        st.subheader("🧬 Pituitary Tumor")
+        st.write("""
+        Tumor ini tumbuh di kelenjar pituitari (hipofisis), yang berperan penting dalam produksi hormon.
+        Bisa memengaruhi berbagai fungsi tubuh dan terkadang menyebabkan gangguan hormonal.
+        """)
+
+    elif pilihan == "notumor":
+        st.subheader("✅ No Tumor")
+        st.write("""
+        Tidak terdeteksi adanya tumor dalam citra MRI otak. Namun, untuk diagnosis pasti tetap diperlukan pemeriksaan oleh dokter spesialis.
+        """)
 
 # ==================== TENTANG APLIKASI ====================
 elif menu == "ℹ️ Tentang Aplikasi":
-    st.title("ℹ️ Tentang Aplikasi")
+    st.title("ℹ️ Tentang Aplikasi Ini")
+
     st.markdown("""
-    Aplikasi ini menggunakan model deep learning berbasis CNN untuk mengklasifikasikan gambar MRI otak menjadi beberapa jenis tumor:
-    - **Glioma**
-    - **Meningioma**
-    - **Pituitary**
-    - **Tidak ada tumor (No Tumor)**
+    **Deteksi Tumor Otak dari Citra MRI** adalah aplikasi berbasis deep learning yang bertujuan untuk membantu mengenali jenis tumor otak
+    dari citra MRI secara cepat dan sederhana.
 
-    Dibuat untuk tujuan edukasi dan bukan pengganti diagnosis medis resmi. Jika kamu mengalami gejala atau masalah kesehatan, konsultasikan ke dokter spesialis.
+    Aplikasi ini **tidak menggantikan diagnosis medis** dan hanya ditujukan untuk **edukasi dan pembelajaran**.
 
-    **Versi TensorFlow**: {0}
-    
     ---
-    👩‍💻 Dibuat oleh: Eva Meivina Dwiana  
-    📧 Kontak: [eva@email.com](mailto:eva@email.com)
-    """.format(tf.__version__))
+    🔧 **Fitur Aplikasi:**
+    - Prediksi jenis tumor dari gambar MRI
+    - Penjelasan edukatif tentang jenis-jenis tumor
+    - Tampilan responsif & mudah digunakan
+
+    💡 **Teknologi:**  
+    Dibuat menggunakan TensorFlow, Streamlit, dan model CNN.
+
+    ✨ Didesain dengan harapan bisa membantu kamu belajar teknologi AI di dunia medis secara ringan dan menyenangkan.
+
+    ---
+    👩‍💻 Developer: Eva Meivina Dwiana  
+    📫 Kontak: [eva@email.com](mailto:eva@email.com)
+    """)
+
