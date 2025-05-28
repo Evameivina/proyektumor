@@ -121,6 +121,13 @@ st.markdown("""
     .css-1n76uvr {
         margin-bottom: 0.7rem !important;
     }
+
+    /* Spacing antar opsi radio di sidebar agar jaraknya sama */
+.css-1n76uvr {
+    margin-bottom: 1.5rem !important;  /* Atur jarak bawah tiap opsi menu */
+}
+
+
 </style>
 """, unsafe_allow_html=True)
 
