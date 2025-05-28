@@ -10,108 +10,34 @@ st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
 # CSS styling
 st.markdown("""
-<style>
-    /* Hapus scroll vertikal di home */
-    body, html, #root > div:nth-child(1) {
-        overflow-y: hidden;
-        height: 100vh;
-    }
+st.markdown("""
+    <style>
+        .instructions-box {
+            background-color: #d4f0f9;
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
 
-    /* Judul utama, lebih besar dan bold */
-    .menu-title, .feature-title {
-        font-size: 40px;       /* dibuat lebih besar */
-        font-weight: 700;
-        color: #0077b6;
-        margin-bottom: 15px;
-        user-select: none;
-        border-bottom: 4px solid #00b4d8;
-        padding-bottom: 8px;
-        text-align: center;
-    }
+        /* Hapus margin atas bawaan Streamlit */
+        section.main > div {padding-top: 10px;}
+    </style>
 
-    /* Styling kotak instruksi */
-    .instruction-box {
-        background-color: #caf0f8;
-        border-left: 6px solid #023e8a;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-size: 16px;
-        line-height: 1.4;
-        margin-bottom: 25px;
-        user-select: none;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* Styling kotak upload */
-    div[data-testid="stFileUploader"] > div:first-child {
-        border: 3px dashed #0077b6 !important;
-        border-radius: 15px !important;
-        padding: 20px 15px !important;
-        background-color: #e0f7fa !important;
-        transition: background-color 0.3s ease;
-        user-select: none;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    /* Label upload gambar */
-    label[for="upload"] {
-        font-weight: 500;
-        font-size: 22px;
-        color: #0077b6;
-        margin-bottom: 12px;  /* Tambahkan atau perbesar jarak bawah */
-        display: block;
-        text-align: center;
-        user-select: none;
-    }
-
-    /* Caption gambar */
-    .image-caption {
-        font-size: 14px;
-        color: #444;
-        text-align: center;
-        margin-top: 8px;
-        font-style: italic;
-        user-select: none;
-    }
-
-    /* Styling sidebar menu label */
-    .sidebar-menu-label {
-        font-weight: 900;
-        font-size: 26px;
-        color: #0077b6;
-        margin-bottom: 10px;
-        user-select: none;
-        padding-left: 15px;
-    }
-
-    /* Styling prediction results */
-    .prediction-success {
-        font-size: 20px;
-        color: #007f5f;
-        font-weight: 700;
-        margin-top: 15px;
-        text-align: center;
-        user-select: none;
-    }
-    .prediction-info {
-        font-size: 18px;
-        color: #023e8a;
-        font-weight: 600;
-        text-align: center;
-        user-select: none;
-    }
-
-    /* Kontainer utama */
-    .main {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 15px 25px;
-    }
-</style>
+    <div class="instructions-box">
+        <ol>
+            <li>Siapkan <b>gambar MRI otak</b> (format JPG, JPEG, atau PNG).</li>
+            <li>Pastikan gambar jelas dan memperlihatkan struktur otak.</li>
+            <li>Klik <i>"Browse files"</i> atau seret gambar ke kotak unggah.</li>
+            <li>Sistem akan otomatis memeriksa validitas gambar.</li>
+            <li>Model akan memprediksi jenis tumor jika ditemukan.</li>
+            <li>Hasil prediksi akan menampilkan jenis tumor dan tingkat kepercayaan.</li>
+        </ol>
+    </div>
 """, unsafe_allow_html=True)
+
+# Gunakan ini agar label "Upload Gambar MRI" langsung jadi satu bagian dengan uploader
+uploaded_file = st.file_uploader("### Upload Gambar MRI", type=["jpg", "jpeg", "png"])
 
 # Download dan load model
 model_path = 'brain_tumor_model.h5'
