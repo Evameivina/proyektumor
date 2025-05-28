@@ -19,8 +19,8 @@ st.markdown("""
 
     /* Judul utama, lebih besar dan bold */
     .menu-title, .feature-title {
-        font-size: 48px;       /* dibuat lebih besar */
-        font-weight: 900;
+        font-size: 40px;       /* dibuat lebih besar */
+        font-weight: 700;
         color: #0077b6;
         margin-bottom: 15px;
         user-select: none;
