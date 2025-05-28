@@ -36,9 +36,6 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Gunakan ini agar label "Upload Gambar MRI" langsung jadi satu bagian dengan uploader
-uploaded_file = st.file_uploader("### Upload Gambar MRI", type=["jpg", "jpeg", "png"])
-
 # Download dan load model
 model_path = 'brain_tumor_model.h5'
 file_id = '18lLL4vDzXS9gdDXksyJhuY5MedaafKv7'
