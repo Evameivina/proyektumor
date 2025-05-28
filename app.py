@@ -8,7 +8,7 @@ import os
 # Page config
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# Minimalist & elegant CSS styling
+# Minimalist & elegant CSS styling plus revisi jarak menu sidebar
 st.markdown("""
 <style>
     /* Body & root container */
@@ -105,7 +105,7 @@ st.markdown("""
         font-weight: 700;
         font-size: 1.6rem;
         color: #1a73e8;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;  /* jarak bawah label menu */
         padding-left: 15px;
         user-select: none;
     }
@@ -117,17 +117,12 @@ st.markdown("""
         padding: 0 20px;
     }
 
-    /* Spacing between radio buttons in sidebar */
-    .css-1n76uvr {
-        margin-bottom: 0.7rem !important;
-    }
-
     /* Spacing antar opsi radio di sidebar agar jaraknya sama */
-.css-1n76uvr {
-    margin-bottom: 1.5rem !important;  /* Atur jarak bawah tiap opsi menu */
-}
-
-
+    .stRadio > div > label {
+        margin-bottom: 1.5rem !important;  /* jarak antar opsi menu radio */
+        display: block;
+        user-select: none;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -168,7 +163,7 @@ def is_probably_mri(image_pil):
             return False
     return True
 
-# Sidebar menu with clear label
+# Sidebar menu dengan label dan radio
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
 page = st.sidebar.radio("", ["Home", "Tumor Info"])
 
