@@ -33,9 +33,9 @@ libclang==18.1.1
 markdown==3.8
 markupsafe==3.0.2
 matplotlib==3.10.3
-ml-dtypes==0.2.0
+ml-dtypes==0.1.0         # ✅ DITURUNKAN dari 0.2.0
 narwhals==1.41.0
-numpy==2.2.6
+numpy==1.24.3            # ✅ DITURUNKAN dari 2.2.6
 oauthlib==3.2.2
 opencv-python==4.11.0.86
 opt-einsum==3.4.0
