@@ -168,7 +168,7 @@ page = st.sidebar.radio("", ["Home", "Tumor Info"])
 # =============== HOME PAGE ===============
 if page == "Home":
     st.markdown('<div class="main">', unsafe_allow_html=True)
-    st.markdown('<div class="menu-title">Brain Tumor Detection dari Citra MRI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="menu-title">Brain Tumor Detection</div>', unsafe_allow_html=True)
 
     st.markdown("""
     <div class="instruction-box">
