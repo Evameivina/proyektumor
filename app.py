@@ -4,6 +4,9 @@ from PIL import Image, UnidentifiedImageError
 from tensorflow.keras.models import load_model
 import gdown
 import os
+import tensorflow as tf
+
+st.write("TensorFlow version:", tf.__version__)
 
 # Path dan URL model
 model_path = 'brain_tumor_model.h5'
