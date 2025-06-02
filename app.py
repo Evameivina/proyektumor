@@ -48,7 +48,7 @@ st.markdown("""
         padding: 15px 15px !important;
         background-color: #fff !important;
         max-width: 600px;
-        margin: 0 auto 1rem auto; 
+        margin: 0 auto 0.5rem auto; 
         transition: background-color 0.3s ease;
         user-select: none;
     }
