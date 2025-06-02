@@ -27,7 +27,7 @@ st.markdown("""
         text-align: center;
         margin: 0.3rem 0 0.8rem 0;
         border-bottom: 2px solid #4285f4;
-        padding-bottom: 0.9rem;
+        padding-bottom: 3rem;
         user-select: none;
     }
     .instruction-box {
