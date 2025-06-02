@@ -242,17 +242,23 @@ elif page == "Tumor Info":
 
     elif pilihan == "meningioma":
         st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
-        st.write(
-            "Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, "
-            "yaitu bagian dari meninges yang melindungi otak dan sumsum tulang belakang. Meski bersifat jinak, "
-            "tumor ini dapat membesar dan berpotensi mengancam jiwa. Meningioma ganas sering dikaitkan dengan "
-            "mutasi kromosom yang mempercepat pertumbuhan tumor. Biasanya muncul tunggal, namun bisa juga "
-            "ditemukan di beberapa lokasi secara bersamaan.\n\n"
-            "Gejala klinis meningioma seringkali tidak jelas, kecuali bila tumor sudah berukuran cukup besar, "
-            "karena pertumbuhannya yang lambat."
+        st.markdown(
+            """
+            <div style="text-align: justify;">
+            Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, yaitu bagian dari meninges yang melindungi otak dan sumsum tulang belakang. 
+            Meski bersifat jinak, tumor ini dapat membesar dan berpotensi mengancam jiwa. Meningioma ganas sering dikaitkan dengan mutasi kromosom yang mempercepat pertumbuhan tumor. 
+            Biasanya muncul tunggal, namun bisa juga ditemukan di beberapa lokasi secara bersamaan.<br><br>
+            Gejala klinis meningioma seringkali tidak jelas, kecuali bila tumor sudah berukuran cukup besar, karena pertumbuhannya yang lambat.
+            </div>
+            """,
+            unsafe_allow_html=True
         )
         st.markdown(
-            '📚 Referensi: [Jurnal Abdimas Trimedika - Universitas Trisakti](https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011)',
+            """
+            <div style="text-align: justify;">
+            📚 Referensi: <a href="https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011" target="_blank">Jurnal Abdimas Trimedika - Universitas Trisakti</a>
+            </div>
+            """,
             unsafe_allow_html=True
         )
 
