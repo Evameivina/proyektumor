@@ -8,8 +8,7 @@ import os
 # Page config
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# Custom CSS styling dan spacing sidebar
-st.markdown("""
+# Custom CSS styling dan spacing sidebarst.markdown("""
 <style>
     body, html, #root > div:nth-child(1) {
         height: 100vh;
@@ -17,36 +16,38 @@ st.markdown("""
         background: #f9fafb;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: #333;
+        margin: 0;
+        padding: 0;
     }
     .menu-title {
-        font-size: 3rem;
+        font-size: 2.5rem;  /* sedikit kecil supaya nggak terlalu besar */
         font-weight: 700;
         color: #1a73e8;
         text-align: center;
-        margin: 1rem 0 2rem 0;
-        border-bottom: 3px solid #4285f4;
-        padding-bottom: 0.5rem;
+        margin: 0.5rem 0 1rem 0;  /* jarak atas dan bawah lebih kecil */
+        border-bottom: 2px solid #4285f4;
+        padding-bottom: 0.3rem;
         user-select: none;
     }
     .instruction-box {
         background-color: #e8f0fe;
-        border-left: 5px solid #1a73e8;
-        border-radius: 10px;
-        padding: 1rem 1.5rem;
+        border-left: 4px solid #1a73e8;
+        border-radius: 8px;
+        padding: 0.8rem 1.2rem;
         max-width: 650px;
-        margin: 0 auto 2.5rem auto;
-        font-size: 1.1rem;
-        line-height: 1.5;
+        margin: 0 auto 1.5rem auto; /* margin bawah diperkecil */
+        font-size: 1rem;
+        line-height: 1.3;
         color: #202124;
         user-select: none;
     }
     div[data-testid="stFileUploader"] > div:first-child {
-        border: 2.5px dashed #1a73e8 !important;
-        border-radius: 15px !important;
-        padding: 25px 20px !important;
+        border: 2px dashed #1a73e8 !important;
+        border-radius: 12px !important;
+        padding: 15px 15px !important;
         background-color: #fff !important;
         max-width: 600px;
-        margin: 0 auto 1.5rem auto;
+        margin: 0 auto 1rem auto; /* margin bawah dikurangi */
         transition: background-color 0.3s ease;
         user-select: none;
     }
@@ -55,54 +56,54 @@ st.markdown("""
     }
     label[for="upload"] {
         font-weight: 600;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: #1a73e8;
         display: block;
         text-align: center;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.3rem;  /* margin bawah kecil */
         user-select: none;
     }
     .image-caption {
         text-align: center;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: #555;
         font-style: italic;
-        margin-top: 0.5rem;
+        margin-top: 0.3rem; /* jarak atas dikurangi */
         user-select: none;
     }
     .prediction-success {
         text-align: center;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 700;
         color: #188038;
-        margin-top: 1.2rem;
+        margin-top: 0.8rem; /* jarak atas diperkecil */
         user-select: none;
     }
     .prediction-info {
         text-align: center;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 600;
         color: #155ab3;
-        margin-top: 0.4rem;
+        margin-top: 0.3rem; /* jarak atas kecil */
         user-select: none;
     }
     .sidebar-menu-label {
         font-weight: 700;
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         color: #1a73e8;
-        margin-bottom: 1.5rem;
-        padding-left: 15px;
+        margin-bottom: 1rem;
+        padding-left: 12px;
         user-select: none;
     }
     .main {
         max-width: 850px;
-        margin: 0 auto 3rem auto;
-        padding: 0 20px;
+        margin: 0 auto 2rem auto;
+        padding: 0 15px;
     }
     .stRadio > div > div {
         display: flex;
         align-items: center;
-        margin-bottom: 1.3rem;
+        margin-bottom: 1rem;  /* dikurangi */
         user-select: none;
     }
     .stRadio > div > div > label {
