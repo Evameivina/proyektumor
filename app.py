@@ -61,7 +61,7 @@ st.markdown("""
         color: #1a73e8;
         display: block;
         text-align: center;
-        margin-bottom: 0.3rem;  /* margin bawah kecil */
+        margin-bottom: 0.1rem;  /* margin bawah kecil */
         user-select: none;
     }
     .image-caption {
