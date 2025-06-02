@@ -212,17 +212,18 @@ if page == "Home":
                 else:
                     predicted_class = class_names[pred_index]
                     st.markdown(f"""
-                    <div class="prediction-box">
-                        <div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>
-                        <div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>
-                    </div>
+                        <div class="prediction-box">
+                            <div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>
+                            <div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>
+                        </div>
+                    """, unsafe_allow_html=True)  
 
-        except UnidentifiedImageError:
-            st.error("File yang diunggah bukan gambar yang valid.")
-        except Exception as e:
-            st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
+                # Lanjutkan dengan except block di luar blok if/else
+                except UnidentifiedImageError:
+                    st.error("File yang diunggah bukan gambar yang valid.")
+                except Exception as e:
+                    st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
 
-    st.markdown("</div>", unsafe_allow_html=True)
 
 # ========== Halaman Informasi Tumor ==========
 elif page == "Tumor Info":
