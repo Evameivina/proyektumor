@@ -239,24 +239,27 @@ elif page == "Tumor Info":
     if pilihan == "glioma":
         st.markdown('<div class="menu-title">Glioma</div>', unsafe_allow_html=True)
         st.write("Tumor berasal dari sel glial. Bisa jinak atau ganas, dan umumnya tumbuh cepat.")
+
     elif pilihan == "meningioma":
-    st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
-    st.write(
-        "Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, "
-        "yaitu bagian dari meninges yang melindungi otak dan sumsum tulang belakang. Meski bersifat jinak, "
-        "tumor ini dapat membesar dan berpotensi mengancam jiwa. Meningioma ganas sering dikaitkan dengan "
-        "mutasi kromosom yang mempercepat pertumbuhan tumor. Biasanya muncul tunggal, namun bisa juga "
-        "ditemukan di beberapa lokasi secara bersamaan.\n\n"
-        "Gejala klinis meningioma seringkali tidak jelas, kecuali bila tumor sudah berukuran cukup besar, "
-        "karena pertumbuhannya yang lambat."
-    )
-    st.markdown(
-        '📚 Referensi: [Jurnal Abdimas Trimedika - Universitas Trisakti](https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011)',
-        unsafe_allow_html=True
-    )
+        st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
+        st.write(
+            "Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, "
+            "yaitu bagian dari meninges yang melindungi otak dan sumsum tulang belakang. Meski bersifat jinak, "
+            "tumor ini dapat membesar dan berpotensi mengancam jiwa. Meningioma ganas sering dikaitkan dengan "
+            "mutasi kromosom yang mempercepat pertumbuhan tumor. Biasanya muncul tunggal, namun bisa juga "
+            "ditemukan di beberapa lokasi secara bersamaan.\n\n"
+            "Gejala klinis meningioma seringkali tidak jelas, kecuali bila tumor sudah berukuran cukup besar, "
+            "karena pertumbuhannya yang lambat."
+        )
+        st.markdown(
+            '📚 Referensi: [Jurnal Abdimas Trimedika - Universitas Trisakti](https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011)',
+            unsafe_allow_html=True
+        )
+
     elif pilihan == "pituitary":
         st.markdown('<div class="menu-title">Tumor Pituitari</div>', unsafe_allow_html=True)
         st.write("Tumbuh di kelenjar pituitari yang mengatur hormon. Bisa mengganggu keseimbangan hormon.")
+
     elif pilihan == "notumor":
         st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
         st.write("Tidak ditemukan tumor pada gambar MRI. Selalu konsultasi dengan dokter untuk hasil pasti.")
