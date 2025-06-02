@@ -21,6 +21,7 @@ st.markdown("""
         padding: 0;
     }
         .menu-title {
+        display: inline-block;
         font-size: 2.5rem;
         font-weight: 700;
         color: #1a73e8;
