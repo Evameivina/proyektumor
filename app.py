@@ -21,14 +21,13 @@ st.markdown("""
         padding: 0;
     }
     .menu-title {
-        display: inline-block;
         font-size: 2.5rem;
         font-weight: 700;
         color: #1a73e8;
         text-align: center;
-        margin: 0.3rem 0 0.8rem 0;
+        margin: 1.5rem 0 0.3rem 0;
         border-bottom: 2px solid #4285f4;
-        padding-bottom: 3rem;
+        padding-bottom: 0.6rem;
         user-select: none;
     }
     .instruction-box {
@@ -90,7 +89,6 @@ st.markdown("""
         user-select: none;
     }
     .sidebar-menu-label {
-        display: inline-block;
         font-weight: 700;
         font-size: 1.4rem;
         color: #1a73e8;
@@ -102,7 +100,7 @@ st.markdown("""
     }
     .main {
         max-width: 850px;
-        margin: 0 auto 2rem auto;
+        margin: 0.5rem auto 2rem auto;
         padding: 0 15px;
     }
     .stRadio > div > div {
