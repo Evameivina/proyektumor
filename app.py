@@ -71,33 +71,21 @@ st.markdown("""
         margin-top: 0.3rem;
         user-select: none;
     }
-    .prediction-box {
-        border: 2px solid #188038;
-        border-radius: 12px;
-        background-color: #d4edda;
-        padding: 20px 25px;
-        max-width: 400px;
-        margin: 1rem auto 2rem auto;
+    .prediction-success {
         text-align: center;
-        user-select: none;
-        box-shadow: 0 4px 6px rgba(24, 128, 56, 0.2);
-    }
-    .prediction-box .title {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 700;
-        color: #155724;
-        margin-bottom: 8px;
+        color: #188038;
+        margin-top: 0.8rem;
+        user-select: none;
     }
-    .prediction-box .class-name {
-        font-size: 1.8rem;
-        font-weight: 900;
-        color: #155724;
-        margin-bottom: 10px;
-    }
-    .prediction-box .confidence {
-        font-size: 1.1rem;
+    .prediction-info {
+        text-align: center;
+        font-size: 1rem;
         font-weight: 600;
-        color: #155724;
+        color: #155ab3;
+        margin-top: 0.3rem;
+        user-select: none;
     }
     .sidebar-menu-label {
         font-weight: 700;
@@ -213,18 +201,50 @@ if page == "Home":
                     st.warning("Model tidak yakin dengan prediksi. Silakan coba gambar lain.")
                 else:
                     predicted_class = class_names[pred_index]
-                    # Output dalam kotak berwarna dengan CSS class .prediction-box
-                    st.markdown(f'''
-                    <div class="prediction-box">
-                        <div class="title">Jenis Tumor Terdeteksi:</div>
-                        <div class="class-name">{predicted_class.upper()}</div>
-                        <div class="confidence">Tingkat Kepercayaan: <strong>{confidence:.2f}</strong></div>
-                    </div>
-                    ''', unsafe_allow_html=True)
+                    st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
 
         except UnidentifiedImageError:
             st.error("File yang diunggah bukan gambar yang valid.")
         except Exception as e:
             st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
 
-    st.markdown("</div>",
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# ========== Halaman Informasi Tumor ==========
+elif page == "Tumor Info":
+    st.markdown('<div class="main">', unsafe_allow_html=True)
+    st.markdown('<div class="menu-title">Informasi Jenis Tumor Otak</div>', unsafe_allow_html=True)
+
+    pilihan = st.selectbox("Pilih jenis tumor untuk informasi:", class_names)
+
+    if pilihan == "glioma":
+        st.markdown('<div class="menu-title">Glioma</div>', unsafe_allow_html=True)
+        st.write("Tumor berasal dari sel glial. Bisa jinak atau ganas, dan umumnya tumbuh cepat.")
+
+    elif pilihan == "meningioma":
+        st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: justify;">
+            Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, bagian dari meninges yang melindungi otak dan sumsum tulang belakang. 
+            Meski jinak, tumor ini dapat membesar dan mengancam jiwa. Meningioma ganas sering dikaitkan dengan mutasi kromosom yang mempercepat pertumbuhan tumor. 
+            Biasanya muncul tunggal, tapi bisa ditemukan di beberapa lokasi sekaligus.<br><br>
+            Gejala klinis sering tidak jelas kecuali tumor sudah besar karena pertumbuhan lambat.
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: justify;">
+            <b>Referensi:</b> <a href="https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011" target="_blank">
+            Jurnal Abdimas Trimedika - Universitas Trisakti</a>
+            </div>
+        """, unsafe_allow_html=True)
+
+    elif pilihan == "pituitary":
+        st.markdown('<div class="menu-title">Tumor Pituitari</div>', unsafe_allow_html=True)
+        st.write("Tumbuh di kelenjar pituitari yang mengatur hormon. Bisa mengganggu keseimbangan hormon tubuh.")
+
+    elif pilihan == "notumor":
+        st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
+        st.write("Tidak ditemukan tumor pada gambar MRI. Selalu konsultasi dengan dokter untuk hasil pasti.")
+
+    st.markdown("</div>", unsafe_allow_html=True)
