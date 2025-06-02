@@ -8,7 +8,8 @@ import os
 # Page config
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# Custom CSS styling dan spacing sidebarst.markdown("""
+# Custom CSS styling dan spacing sidebar
+st.markdown("""
 <style>
     body, html, #root > div:nth-child(1) {
         height: 100vh;
