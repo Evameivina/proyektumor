@@ -20,12 +20,12 @@ st.markdown("""
         margin: 0;
         padding: 0;
     }
-    .menu-title {
-        font-size: 2.5rem;  /* sedikit kecil supaya nggak terlalu besar */
+        .menu-title {
+        font-size: 2.5rem;
         font-weight: 700;
         color: #1a73e8;
         text-align: center;
-        margin: 0.5rem 0 1rem 0;  /* jarak atas dan bawah lebih kecil */
+        margin: 0.3rem 0 0.8rem 0;
         border-bottom: 2px solid #4285f4;
         padding-bottom: 0.3rem;
         user-select: none;
@@ -36,7 +36,7 @@ st.markdown("""
         border-radius: 8px;
         padding: 0.8rem 1.2rem;
         max-width: 650px;
-        margin: 0 auto 1.5rem auto; /* margin bawah diperkecil */
+        margin: 0 auto 1.5rem auto; 
         font-size: 1rem;
         line-height: 1.3;
         color: #202124;
@@ -48,7 +48,7 @@ st.markdown("""
         padding: 15px 15px !important;
         background-color: #fff !important;
         max-width: 600px;
-        margin: 0 auto 1rem auto; /* margin bawah dikurangi */
+        margin: 0 auto 1rem auto; 
         transition: background-color 0.3s ease;
         user-select: none;
     }
@@ -88,12 +88,14 @@ st.markdown("""
         margin-top: 0.3rem; /* jarak atas kecil */
         user-select: none;
     }
-    .sidebar-menu-label {
+        .sidebar-menu-label {
         font-weight: 700;
         font-size: 1.4rem;
         color: #1a73e8;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         padding-left: 12px;
+        border-bottom: 2px solid #4285f4;
+        padding-bottom: 0.3rem;
         user-select: none;
     }
     .main {
