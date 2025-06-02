@@ -8,7 +8,7 @@ import os
 # Page config
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
-# Custom CSS styling dan spacing sidebar
+# Custom CSS styling sidebar dan halaman
 st.markdown("""
 <style>
     body, html, #root > div:nth-child(1) {
@@ -17,8 +17,7 @@ st.markdown("""
         background: #f9fafb;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: #333;
-        margin: 0;
-        padding: 0;
+        margin: 0; padding: 0;
     }
     .menu-title {
         font-size: 2.5rem;
@@ -45,7 +44,7 @@ st.markdown("""
     div[data-testid="stFileUploader"] > div:first-child {
         border: 2px dashed #1a73e8 !important;
         border-radius: 12px !important;
-        padding: 15px 15px !important;
+        padding: 15px !important;
         background-color: #fff !important;
         max-width: 600px;
         margin: 0 auto 0.2rem auto; 
@@ -61,7 +60,7 @@ st.markdown("""
         color: #1a73e8;
         display: block;
         text-align: center;
-        margin-bottom: 0.1rem;  /* margin bawah kecil */
+        margin-bottom: 0.1rem;
         user-select: none;
     }
     .image-caption {
@@ -69,7 +68,7 @@ st.markdown("""
         font-size: 0.85rem;
         color: #555;
         font-style: italic;
-        margin-top: 0.3rem; /* jarak atas dikurangi */
+        margin-top: 0.3rem;
         user-select: none;
     }
     .prediction-success {
@@ -77,7 +76,7 @@ st.markdown("""
         font-size: 1.2rem;
         font-weight: 700;
         color: #188038;
-        margin-top: 0.8rem; /* jarak atas diperkecil */
+        margin-top: 0.8rem;
         user-select: none;
     }
     .prediction-info {
@@ -85,7 +84,7 @@ st.markdown("""
         font-size: 1rem;
         font-weight: 600;
         color: #155ab3;
-        margin-top: 0.3rem; /* jarak atas kecil */
+        margin-top: 0.3rem;
         user-select: none;
     }
     .sidebar-menu-label {
@@ -106,7 +105,7 @@ st.markdown("""
     .stRadio > div > div {
         display: flex;
         align-items: center;
-        margin-bottom: 1rem;  /* dikurangi */
+        margin-bottom: 1rem;
         user-select: none;
     }
     .stRadio > div > div > label {
@@ -118,13 +117,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Path dan Google Drive file ID untuk model
+# Path dan ID file model di Google Drive
 model_path = 'brain_tumor_model.h5'
 file_id = '18lLL4vDzXS9gdDXksyJhuY5MedaafKv7'
 download_url = f'https://drive.google.com/uc?id={file_id}'
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
-# Unduh model jika belum ada
+# Unduh model jika belum tersedia
 if not os.path.exists(model_path):
     with st.spinner('Mengunduh model...'):
         downloaded = gdown.download(download_url, model_path, quiet=False)
@@ -132,7 +131,7 @@ if not os.path.exists(model_path):
             st.error("Gagal mengunduh model dari Google Drive.")
             st.stop()
 
-# Load model dengan handling error
+# Load model dengan penanganan error
 try:
     model = load_model(model_path)
 except Exception as e:
@@ -147,12 +146,10 @@ def is_probably_mri(image_pil):
     if len(img_np.shape) == 2:  # grayscale
         return True
     if len(img_np.shape) == 3 and img_np.shape[2] == 3:
-        # Cek apakah variance tiap channel warna mirip (mendekati grayscale)
         stds = np.std(img_np, axis=(0,1))
         ratio = stds.min() / (stds.max() + 1e-6)
         if ratio > 0.9:
             return True
-        # Cek apakah gambar terlalu "hijau"
         green_ratio = np.mean(img_np[:,:,1]) / (np.mean(img_np) + 1e-6)
         if green_ratio > 0.5:
             return False
