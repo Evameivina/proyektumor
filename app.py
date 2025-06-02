@@ -194,12 +194,15 @@ if page == "Home":
     uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"], key="upload")
 
     if uploaded_file:
-        try:
-            img = Image.open(uploaded_file).convert('RGB')
-            # Bungkus gambar agar center dan beri width 400px
-            st.markdown('<div style="text-align:center;">', unsafe_allow_html=True)
-            st.image(img, caption='Gambar yang Diunggah', width=400)
-            st.markdown('</div>', unsafe_allow_html=True)
+    try:
+        img = Image.open(uploaded_file).convert('RGB')
+        # Bungkus gambar dengan div flex agar center
+        st.markdown(
+            '''
+            <div style="display: flex; justify-content: center; margin-top: 1rem; margin-bottom: 1rem;">
+            ''', unsafe_allow_html=True)
+        st.image(img, caption='Gambar yang Diunggah', width=400)
+        st.markdown('</div>', unsafe_allow_html=True)
 
             if not is_probably_mri(img):
                 st.warning("Gambar yang diunggah kemungkinan bukan citra MRI otak.")
