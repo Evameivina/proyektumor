@@ -92,7 +92,7 @@ st.markdown("""
         font-weight: 700;
         font-size: 1.4rem;
         color: #1a73e8;
-        margin-bottom: 3.5rem;
+        margin-bottom: 0.2rem;
         padding-left: 12px;
         border-bottom: 2px solid #4285f4;
         padding-bottom: 0.3rem;
