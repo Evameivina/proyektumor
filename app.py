@@ -20,7 +20,7 @@ st.markdown("""
         margin: 0;
         padding: 0;
     }
-        .menu-title {
+    .menu-title {
         display: inline-block;
         font-size: 2.5rem;
         font-weight: 700;
@@ -89,7 +89,8 @@ st.markdown("""
         margin-top: 0.3rem; /* jarak atas kecil */
         user-select: none;
     }
-        .sidebar-menu-label {
+    .sidebar-menu-label {
+        display: inline-block;
         font-weight: 700;
         font-size: 1.4rem;
         color: #1a73e8;
