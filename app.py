@@ -25,7 +25,7 @@ st.markdown("""
         font-weight: 700;
         color: #1a73e8;
         text-align: center;
-        margin: 1.5rem 0 0.3rem 0;
+        margin: margin: 0.3rem 0 0.8rem 0;
         border-bottom: 2px solid #4285f4;
         padding-bottom: 0.6rem;
         user-select: none;
@@ -100,7 +100,7 @@ st.markdown("""
     }
     .main {
         max-width: 850px;
-        margin: 0.5rem auto 2rem auto;
+        margin: 0 auto 2rem auto;
         padding: 0 15px;
     }
     .stRadio > div > div {
