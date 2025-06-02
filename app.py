@@ -193,7 +193,10 @@ if page == "Home":
     if uploaded_file:
         try:
             img = Image.open(uploaded_file).convert('RGB')
-            st.image(img, caption='Gambar yang Diunggah', width=300)
+            # Bungkus gambar agar center dan beri width 400px
+            st.markdown('<div style="text-align:center;">', unsafe_allow_html=True)
+            st.image(img, caption='Gambar yang Diunggah', width=400)
+            st.markdown('</div>', unsafe_allow_html=True)
 
             if not is_probably_mri(img):
                 st.warning("Gambar yang diunggah kemungkinan bukan citra MRI otak.")
@@ -231,23 +234,62 @@ elif page == "Tumor Info":
 
     if pilihan == "glioma":
         st.markdown('<div class="menu-title">Glioma</div>', unsafe_allow_html=True)
-        st.write("Tumor berasal dari sel glial. Bisa jinak atau ganas, dan umumnya tumbuh cepat.")
+        st.write("""
+        Glioma adalah jenis tumor otak yang berasal dari sel glial.
+        Tumor ini bisa bersifat ganas atau jinak, tergantung subtipenya.
+        Gejala umum termasuk sakit kepala, kejang, dan gangguan neurologis.
+        Penanganan meliputi operasi, kemoterapi, dan radioterapi.
+        """)
+        
+    # ========== Halaman Informasi Tumor ==========
+elif page == "Tumor Info":
+    st.markdown('<div class="main">', unsafe_allow_html=True)
+    st.markdown('<div class="menu-title">Informasi Jenis Tumor Otak</div>', unsafe_allow_html=True)
+
+    pilihan = st.selectbox("Pilih jenis tumor untuk informasi:", class_names)
+
+    if pilihan == "glioma":
+        st.markdown('<div class="menu-title">Glioma</div>', unsafe_allow_html=True)
+        st.write("""
+        Glioma adalah jenis tumor otak yang berasal dari sel glial.
+        Tumor ini bisa bersifat ganas atau jinak, tergantung subtipenya.
+        Gejala umum termasuk sakit kepala, kejang, dan gangguan neurologis.
+        Penanganan meliputi operasi, kemoterapi, dan radioterapi.
+        """)
 
     elif pilihan == "meningioma":
         st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
-        st.markdown("""
+        st.markdown(
+            """
             <div style="text-align: justify;">
-            Meningioma adalah tumor yang berkembang dari membran meninges yang mengelilingi otak dan sumsum tulang belakang.
-            Biasanya bersifat jinak, tetapi dapat menyebabkan gejala serius tergantung lokasi.
+            Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, yaitu bagian dari meninges yang melindungi otak dan sumsum tulang belakang. 
+            Meski bersifat jinak, tumor ini dapat membesar dan berpotensi mengancam jiwa. Meningioma ganas sering dikaitkan dengan mutasi kromosom yang mempercepat pertumbuhan tumor. 
+            Biasanya muncul tunggal, namun bisa juga ditemukan di beberapa lokasi secara bersamaan.<br><br>
+            Gejala klinis meningioma seringkali tidak jelas, kecuali bila tumor sudah berukuran cukup besar, karena pertumbuhannya yang lambat.
             </div>
-        """)
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            """
+            <div style="text-align: justify;">
+            <b>Referensi:</b> <a href="https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011" target="_blank">
+            Jurnal Abdimas Trimedika - Universitas Trisakti</a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     elif pilihan == "notumor":
         st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
-        st.write("Gambar MRI menunjukkan otak yang sehat tanpa tanda tumor.")
+        st.write("Gambar menunjukkan kondisi otak tanpa tumor yang terdeteksi.")
 
     elif pilihan == "pituitary":
-        st.markdown('<div class="menu-title">Tumor Pituitary</div>', unsafe_allow_html=True)
-        st.write("Tumor yang berkembang di kelenjar pituitary, memengaruhi fungsi hormon tubuh.")
+        st.markdown('<div class="menu-title">Pituitary Tumor</div>', unsafe_allow_html=True)
+        st.write("""
+        Tumor pituitari tumbuh pada kelenjar pituitari di dasar otak.
+        Bisa menyebabkan gangguan hormon dan masalah kesehatan lain.
+        Penanganan dapat meliputi operasi, terapi hormon, dan radioterapi.
+        """)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
