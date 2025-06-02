@@ -110,6 +110,9 @@ st.markdown("""
         max-width: 850px;
         margin: 0 auto 2rem auto;
         padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;  
     }
     .stRadio > div > div {
         display: flex;
