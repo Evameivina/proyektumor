@@ -71,21 +71,31 @@ st.markdown("""
         margin-top: 0.3rem;
         user-select: none;
     }
+    <style>
+    .prediction-box {
+        background-color: #e6f4ea;
+        border-left: 5px solid #188038;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        user-select: none;
+    }
     .prediction-success {
         text-align: center;
         font-size: 1.2rem;
         font-weight: 700;
         color: #188038;
-        margin-top: 0.8rem;
-        user-select: none;
+        margin-bottom: 0.3rem;
     }
     .prediction-info {
         text-align: center;
         font-size: 1rem;
         font-weight: 600;
         color: #155ab3;
-        margin-top: 0.3rem;
-        user-select: none;
     }
     .sidebar-menu-label {
         font-weight: 700;
@@ -201,8 +211,11 @@ if page == "Home":
                     st.warning("Model tidak yakin dengan prediksi. Silakan coba gambar lain.")
                 else:
                     predicted_class = class_names[pred_index]
-                    st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="prediction-box">
+                        <div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>
+                        <div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>
+                    </div>
 
         except UnidentifiedImageError:
             st.error("File yang diunggah bukan gambar yang valid.")
