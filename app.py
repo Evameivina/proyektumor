@@ -79,6 +79,13 @@ st.markdown("""
         color: #188038;
         margin-top: 0.8rem;
         user-select: none;
+        border: 2px solid #188038;
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #e6f4ea;
     }
     .prediction-info {
         text-align: center;
@@ -92,7 +99,7 @@ st.markdown("""
         font-weight: 700;
         font-size: 1.4rem;
         color: #1a73e8;
-        margin-bottom: 3.5rem;
+        margin-bottom: 0.2rem; 
         padding-left: 12px;
         border-bottom: 2px solid #4285f4;
         padding-bottom: 0.3rem;
@@ -186,7 +193,7 @@ if page == "Home":
             st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
 
             if not is_probably_mri(img):
-                st.warning("Gambar yang diunggah kemungkinan bukan citra MRI otak.")
+                st.warning("Gambar yang diunggah tidak sesuai dan tidak terdeteksi")
             else:
                 img_resized = img.resize((224, 224))
                 img_array = np.array(img_resized) / 255.0
