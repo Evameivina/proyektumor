@@ -287,6 +287,14 @@ elif page == "Tumor Info":
 
     elif pilihan == "notumor":
         st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
-        st.write("Tidak ditemukan tumor pada gambar MRI. Selalu konsultasi dengan dokter untuk hasil pasti.")
+        st.markdown("""
+            <div style="text-align: justify;">
+            Pada pemeriksaan MRI atau CT scan, jika tidak ditemukan adanya massa atau pertumbuhan sel abnormal di otak, maka dikatakan tidak ada tumor otak. 
+            Kondisi ini menunjukkan bahwa otak dalam keadaan normal tanpa adanya tumor yang bisa mengganggu fungsi saraf atau kesehatan otak.<br><br>
+            Namun, penting untuk selalu konsultasi dengan dokter atau ahli saraf untuk memastikan diagnosis dan pemantauan jika terdapat gejala yang mencurigakan.<br><br>
+            Pemeriksaan lanjutan mungkin diperlukan untuk memastikan penyebab gejala yang dialami jika ada.
+            </div>
+        """, unsafe_allow_html=True)
+
 
     st.markdown("</div>", unsafe_allow_html=True)
