@@ -263,7 +263,7 @@ elif page == "Tumor Info":
             </div>
         """, unsafe_allow_html=True)
 
-        elif pilihan == "pituitary":
+    elif pilihan == "pituitary":
         st.markdown('<div class="menu-title">Tumor Pituitary</div>', unsafe_allow_html=True)
         st.markdown("""
             <div style="text-align: justify;">
