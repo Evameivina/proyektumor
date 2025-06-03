@@ -229,24 +229,24 @@ elif page == "Tumor Info":
         st.write("Tumor berasal dari sel glial. Bisa jinak atau ganas, dan umumnya tumbuh cepat.")
 
     elif pilihan == "meningioma":
-    st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
-    st.markdown("""
-        <div style="text-align: justify;">
-        Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, bagian dari meninges yang melindungi otak dan sumsum tulang belakang. 
-        Meskipun bersifat jinak, tumor ini bisa tumbuh besar dan menyebabkan tekanan pada jaringan otak. 
-        Tumor ini biasanya muncul tunggal, tetapi bisa juga muncul di beberapa lokasi sekaligus.<br><br>
-        Gejalanya bergantung pada ukuran dan lokasi tumor, seperti sakit kepala, gangguan penglihatan, telinga berdenging, atau mual-muntah. 
-        Pemeriksaan penunjang seperti CT Scan dan MRI digunakan untuk diagnosis, dan bisa dikonfirmasi melalui pemeriksaan patologi anatomi jika hasil pencitraan belum jelas.<br><br>
-        Penanganan meningioma bisa berupa observasi (jika gejala minimal), operasi, radioterapi, atau terapi tambahan lain. 
-        Pencegahan dilakukan dengan mengontrol faktor risiko seperti hipertensi dan diabetes, serta menjalani pola hidup sehat.
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-        <div style="text-align: justify;">
-        <b>Referensi:</b> <a href="https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011" target="_blank">
-        Jurnal Abdimas Trimedika - Universitas Trisakti</a>
-        </div>
-    """, unsafe_allow_html=True)
+        st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: justify;">
+            Meningioma adalah tumor jinak intrakranial yang tumbuh lambat dan berasal dari sel arachnoid, bagian dari meninges yang melindungi otak dan sumsum tulang belakang. 
+            Meskipun bersifat jinak, tumor ini bisa tumbuh besar dan menyebabkan tekanan pada jaringan otak. 
+            Tumor ini biasanya muncul tunggal, tetapi bisa juga muncul di beberapa lokasi sekaligus.<br><br>
+            Gejalanya bergantung pada ukuran dan lokasi tumor, seperti sakit kepala, gangguan penglihatan, telinga berdenging, atau mual-muntah. 
+            Pemeriksaan penunjang seperti CT Scan dan MRI digunakan untuk diagnosis, dan bisa dikonfirmasi melalui pemeriksaan patologi anatomi jika hasil pencitraan belum jelas.<br><br>
+            Penanganan meningioma bisa berupa observasi (jika gejala minimal), operasi, radioterapi, atau terapi tambahan lain. 
+            Pencegahan dilakukan dengan mengontrol faktor risiko seperti hipertensi dan diabetes, serta menjalani pola hidup sehat.
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: justify;">
+            <b>Referensi:</b> <a href="https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011" target="_blank">
+            Jurnal Abdimas Trimedika - Universitas Trisakti</a>
+            </div>
+        """, unsafe_allow_html=True)
 
     elif pilihan == "pituitary":
         st.markdown('<div class="menu-title">Tumor Pituitari</div>', unsafe_allow_html=True)
