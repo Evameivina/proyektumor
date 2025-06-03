@@ -243,6 +243,7 @@ elif page == "Tumor Info":
         """, unsafe_allow_html=True)
         st.markdown("""
             <div style="text-align: justify;">
+            <br><br>
             <b>Referensi:</b> <a href="https://e-journal.trisakti.ac.id/index.php/abdimastrimedika/article/view/19011" target="_blank">
             Jurnal Abdimas Trimedika - Universitas Trisakti</a>
             </div>
