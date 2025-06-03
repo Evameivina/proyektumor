@@ -235,6 +235,7 @@ elif page == "Tumor Info":
         """, unsafe_allow_html=True)
         st.markdown("""
             <div style="text-align: justify;">
+            <br><br>
             <b>Referensi:</b><br>
             <a href="https://www.ncbi.nlm.nih.gov/books/NBK441874/" target="_blank">NCBI Bookshelf - Glioma</a><br>
             <a href="https://jurnal.ar-raniry.ac.id/index.php/jurnalphi/article/download/8302/5016" target="_blank">Jurnal Phi - Ar-Raniry</a>
