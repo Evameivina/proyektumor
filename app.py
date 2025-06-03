@@ -265,7 +265,22 @@ elif page == "Tumor Info":
 
     elif pilihan == "pituitary":
         st.markdown('<div class="menu-title">Tumor Pituitari</div>', unsafe_allow_html=True)
-        st.write("Tumbuh di kelenjar pituitari yang mengatur hormon. Bisa mengganggu keseimbangan hormon tubuh.")
+        st.markdown("""
+            <div style="text-align: justify;">
+            Tumor pituitari adalah pertumbuhan sel abnormal yang terjadi pada kelenjar pituitari, yaitu kelenjar kecil di dasar otak yang berperan penting dalam mengatur berbagai hormon tubuh. 
+            Sebagian besar tumor pituitari bersifat jinak dan tidak menyebar ke bagian tubuh lain, namun bisa memengaruhi produksi hormon sehingga menyebabkan gangguan hormonal.<br><br>
+            Gejalanya bisa bervariasi tergantung pada jenis hormon yang terpengaruh, seperti gangguan penglihatan, sakit kepala, perubahan suasana hati, atau gangguan menstruasi. 
+            Penanganan tumor pituitari meliputi pengobatan dengan obat-obatan, tindakan operasi untuk mengangkat tumor, atau pemantauan berkala tergantung pada ukuran dan aktivitas tumor.
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: justify;">
+            <br><br>
+            <b>Referensi:</b><br>
+            <a href="https://www.mayoclinic.org/diseases-conditions/pituitary-tumors/symptoms-causes/syc-20350560" target="_blank">Mayo Clinic - Pituitary Tumors</a><br>
+            <a href="https://www.cancer.org/cancer/pituitary-tumors/about/what-is-pituitary-tumor.html" target="_blank">American Cancer Society - What Is a Pituitary Tumor?</a>
+            </div>
+        """, unsafe_allow_html=True)
 
     elif pilihan == "notumor":
         st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
