@@ -226,8 +226,21 @@ elif page == "Tumor Info":
 
     if pilihan == "glioma":
         st.markdown('<div class="menu-title">Glioma</div>', unsafe_allow_html=True)
-        st.write("Tumor berasal dari sel glial. Bisa jinak atau ganas, dan umumnya tumbuh cepat.")
-
+        st.markdown("""
+            <div style="text-align: justify;">
+            Glioma adalah jenis tumor yang tumbuh di otak dan sumsum tulang belakang yang berasal dari sel glia, yaitu sel pendukung jaringan saraf. Tumor ini bisa bersifat jinak atau ganas dan merupakan salah satu tumor otak primer yang paling umum.<br><br>
+            Glioma terbagi menjadi beberapa jenis, seperti astrositoma, oligodendroglioma, dan glioblastoma, yang berbeda tingkat keganasan dan pola pertumbuhannya. Gejala glioma biasanya tergantung pada lokasi dan ukuran tumor, seperti sakit kepala, kejang, gangguan penglihatan, atau kelemahan pada bagian tubuh tertentu.<br><br>
+            Diagnosis dilakukan dengan pemeriksaan pencitraan seperti CT scan atau MRI, dan terkadang konfirmasi melalui biopsi jaringan tumor. Penanganan glioma meliputi operasi pengangkatan tumor, radioterapi, dan kemoterapi, tergantung pada jenis dan tingkat keparahan tumor.
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: justify;">
+            <b>Referensi:</b><br>
+            <a href="https://www.ncbi.nlm.nih.gov/books/NBK441874/" target="_blank">NCBI Bookshelf - Glioma</a><br>
+            <a href="https://jurnal.ar-raniry.ac.id/index.php/jurnalphi/article/download/8302/5016" target="_blank">Jurnal Phi - Ar-Raniry</a>
+            </div>
+        """, unsafe_allow_html=True)
+        
     elif pilihan == "meningioma":
         st.markdown('<div class="menu-title">Meningioma</div>', unsafe_allow_html=True)
         st.markdown("""
