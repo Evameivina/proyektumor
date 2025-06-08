@@ -126,9 +126,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Model Download and Loading ---
-model_path = 'brain_tumor_model.h5'
-file_id = '18lLL4vDzXS9gdDXksyJhuY5MedaafKv7'
+file_id = '153Pi99NMlc7e-YgHw1V7mW5GZV_B9QJq'
 download_url = f'https://drive.google.com/uc?id={file_id}'
+gdown.download(download_url, model_path, quiet=False)
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
 if not os.path.exists(model_path):
