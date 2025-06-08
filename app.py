@@ -128,14 +128,14 @@ st.markdown("""
 # --- Model Download and Loading ---
 file_id = '153Pi99NMlc7e-YgHw1V7mW5GZV_B9QJq'
 download_url = f'https://drive.google.com/uc?id={file_id}'
-gdown.download(download_url, model_path, quiet=False)
+model_path = "brain_tumor_model.h5"
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
 if not os.path.exists(model_path):
-    with st.spinner('Mengunduh model...'):
+    with st.spinner("Mengunduh model dari Google Drive..."):
         downloaded = gdown.download(download_url, model_path, quiet=False)
         if not downloaded:
-            st.error("Gagal mengunduh model dari Google Drive.")
+            st.error("Gagal mengunduh model.")
             st.stop()
 
 try:
@@ -143,7 +143,7 @@ try:
 except Exception as e:
     st.error(f"Gagal memuat model: {e}")
     st.stop()
-
+    
 # --- Fungsi untuk cek apakah gambar kemungkinan MRI ---
 def is_probably_mri(image_pil):
     if image_pil.width < 100 or image_pil.height < 100:
