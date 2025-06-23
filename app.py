@@ -126,18 +126,19 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown('<div class="menu-title">Panduan Penggunaan Aplikasi</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="instruction-box">
-    
-    <ul>
-        <li>Siapkan gambar MRI otak dalam format JPG, JPEG, atau PNG.</li>
-        <li>Pastikan gambar jelas, tidak buram, dan memiliki kualitas baik.</li>
-        <li>Pilih menu <strong>Deteksi Tumor</strong> untuk analisis dan hasil prediksi.</li>
-        <li>Sistem akan memprediksi dan menampilkan apakah terdapat indikasi tumor atau tidak, disertai tingkat kepercayaan dan penjelasan singkat jika tumor terdeteksi.</li>
-        <li><strong>Catatan:</strong> Hasil ini hanya sebagai acuan awal. Tetap konsultasikan dengan dokter spesialis untuk kepastian medis.</li>
-    </ul>
-
+    <div style="text-align: justify;">
+        <ul>
+            <li>Siapkan gambar MRI otak dalam format JPG, JPEG, atau PNG.</li>
+            <li>Pastikan gambar jelas, tidak buram, dan memiliki kualitas baik.</li>
+            <li>Pilih menu <strong>Deteksi Tumor</strong> untuk analisis dan hasil prediksi.</li>
+            <li>Sistem akan memprediksi dan menampilkan apakah terdapat indikasi tumor atau tidak, disertai tingkat kepercayaan dan penjelasan singkat jika tumor terdeteksi.</li>
+            <li><strong>Catatan:</strong> Hasil ini hanya sebagai acuan awal. Tetap konsultasikan dengan dokter spesialis untuk kepastian medis.</li>
+        </ul>
+    </div>
     </div>
     """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 # --- Deteksi Tumor ---
 elif page == "Deteksi Tumor":
