@@ -144,7 +144,7 @@ elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("Unggah Gambar MRI Otak di Sini untuk Mulai Analisis", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Mulai analisis dengan mengunggah gambar MRI otak", type=["jpg", "jpeg", "png"])
 
     if uploaded_file:
         try:
