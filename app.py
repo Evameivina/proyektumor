@@ -127,13 +127,13 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown("""
     <div class="instruction-box">
     
-    <ol>
+    <ul>
         <li>Siapkan gambar MRI otak dalam format JPG, JPEG, atau PNG.</li>
         <li>Pastikan gambar jelas, tidak buram, dan memiliki kualitas baik.</li>
         <li>Pilih menu <strong>Deteksi Tumor</strong> untuk memulai proses analisis.</li>
         <li>Sistem akan memprediksi dan menampilkan apakah terdapat indikasi tumor atau tidak, disertai tingkat kepercayaan dan penjelasan singkat jika tumor terdeteksi.</li>
         <li><strong>Catatan:</strong> Hasil ini hanya sebagai acuan awal. Tetap konsultasikan dengan dokter spesialis untuk kepastian medis.</li>
-    </ol>
+    </ul>
 
     </div>
     """, unsafe_allow_html=True)
