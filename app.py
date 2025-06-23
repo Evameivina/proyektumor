@@ -117,8 +117,8 @@ def is_probably_mri(image_pil):
     return False
 
 # --- Sidebar Menu ---
-st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
-page = st.sidebar.radio("", ["Panduan Penggunaan Aplikasi Brain Tumor Detection", "Deteksi Tumor", "Informasi Tumor"])
+st.sidebar.markdown('<div class="sidebar-menu-label">Menu Brain Tumor Detection</div>', unsafe_allow_html=True)
+page = st.sidebar.radio("", ["Panduan Penggunaan Aplikasi ", "Deteksi Tumor", "Informasi Tumor"])
 
 # --- Panduan Penggunaan ---
 if page == "Panduan Penggunaan Aplikasi":
