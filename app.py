@@ -170,10 +170,10 @@ elif page == "Deteksi Tumor":
                     st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
 
                     definitions = {
-                        "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, yang berfungsi mendukung sel saraf.",
-                        "meningioma": "Meningioma adalah tumor jinak yang berasal dari sel-sel pada meninges, lapisan pelindung otak.",
-                        "pituitary": "Tumor pituitari merupakan pertumbuhan abnormal di kelenjar pituitari yang dapat memengaruhi hormon.",
-                        "notumor": "Tidak ditemukan adanya tumor otak berdasarkan gambar MRI yang diunggah."
+                        "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
+                        "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
+                        "pituitary": "Tumor pituitari merupakan Pertumbuhan abnormal di kelenjar pituitari yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
+                        "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
                     }
                     st.info(f"{definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu *Informasi Tumor*.")
 
@@ -259,7 +259,7 @@ elif page == "Informasi Tumor":
             <div style="text-align: justify;">
             Pada pemeriksaan MRI atau CT scan, jika tidak ditemukan adanya massa atau pertumbuhan sel abnormal di otak, maka dikatakan tidak ada tumor otak. 
             Kondisi ini menunjukkan bahwa otak dalam keadaan normal tanpa adanya tumor yang bisa mengganggu fungsi saraf atau kesehatan otak.<br><br>
-            Namun, penting untuk selalu konsultasi dengan dokter atau ahli saraf untuk memastikan diagnosis dan pemantauan jika terdapat gejala yang mencurigakan.<br><br>
+            Namun, penting untuk selalu konsultasi dengan dokter atau ahli saraf untuk memastikan diagnosis dan pemantauan jika terdapat gejala yang mencurigakan.
             Pemeriksaan lanjutan mungkin diperlukan untuk memastikan penyebab gejala yang dialami jika ada.
             </div>
         """, unsafe_allow_html=True)
