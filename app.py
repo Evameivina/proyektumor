@@ -6,7 +6,7 @@ import gdown
 import os
 
 # --- Page configuration ---
-st.set_page_config(page_title="Deteksi Tumor Otak", layout="wide")
+st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
 
 # --- Custom CSS Styling ---
 st.markdown("""
@@ -102,7 +102,7 @@ except Exception as e:
     st.error(f"Gagal memuat model: {e}")
     st.stop()
 
-# --- MRI Validity Check ---
+# --- MRI Check ---
 def is_probably_mri(image_pil):
     if image_pil.width < 100 or image_pil.height < 100:
         return False
@@ -118,21 +118,21 @@ def is_probably_mri(image_pil):
 
 # --- Sidebar Menu ---
 st.sidebar.markdown('<div class="sidebar-menu-label">Menu</div>', unsafe_allow_html=True)
-page = st.sidebar.radio("", ["Panduan Penggunaan", "Deteksi Tumor", "Informasi Tumor"])
+page = st.sidebar.radio("", ["Panduan Penggunaan Aplikasi", "Deteksi Tumor", "Informasi Tumor"])
 
 # --- Panduan Penggunaan ---
-if page == "Panduan Penggunaan":
+if page == "Panduan Penggunaan Aplikasi":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Panduan Penggunaan Aplikasi</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="instruction-box">
-    <h4>Langkah-langkah:</h4>
+    <h4>Cara Menggunakan Aplikasi</h4>
     <ol>
-        <li>Siapkan gambar MRI otak dengan format JPG/JPEG/PNG.</li>
-        <li>Pastikan gambar jelas dan tidak buram.</li>
-        <li>Pilih menu <strong>Deteksi Tumor</strong> dan unggah gambar.</li>
-        <li>Sistem akan melakukan prediksi dan menampilkan jenis tumor serta tingkat kepercayaannya.</li>
-        <li>Gunakan informasi ini sebagai indikasi awal. Tetap konsultasikan dengan dokter spesialis.</li>
+        <li>Siapkan Gambar MRI Otak dengan Format JPG/JPEG/PNG.</li>
+        <li>Pastikan Gambar Jelas dan Tidak Buram.</li>
+        <li>Pilih Menu <strong>Deteksi Tumor</strong> untuk Melakukan Prediksi.</li>
+        <li>Sistem akan memprediksi dan menampilkan apakah gambar mengindikasikan adanya tumor atau tidak, disertai tingkat kepercayaan dan penjelasan singkat jika tumor terdeteksi.</li>
+        <li>Meskipun hasil prediksi dapat membantu, diagnosis akhir tetap harus dilakukan oleh dokter spesialis.</li>
     </ol>
     </div>
     """, unsafe_allow_html=True)
@@ -143,7 +143,7 @@ elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("Unggah Gambar MRI Otak", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Unggah Gambar MRI Otak di Sini untuk Mulai Analisis", type=["jpg", "jpeg", "png"])
 
     if uploaded_file:
         try:
@@ -174,7 +174,7 @@ elif page == "Deteksi Tumor":
                         "pituitary": "Tumor pituitari merupakan pertumbuhan abnormal di kelenjar pituitari yang dapat memengaruhi hormon.",
                         "notumor": "Tidak ditemukan adanya tumor otak berdasarkan gambar MRI yang diunggah."
                     }
-                    st.info(f"\n**Penjelasan Singkat:** {definitions[predicted_class]}")
+                    st.info(f"\nBerikut sedikit informasi tentang hasil prediksi: {definitions[predicted_class]}")
 
         except UnidentifiedImageError:
             st.error("File yang diunggah bukan gambar yang valid.")
@@ -252,7 +252,7 @@ elif page == "Informasi Tumor":
         """, unsafe_allow_html=True)
 
     elif pilihan == "notumor":
-        st.markdown('<div class="menu-title">Tidak Ada Tumor</div>', unsafe_allow_html=True)
+        st.markdown('<div class="menu-title">Notumor</div>', unsafe_allow_html=True)
         st.markdown("""
             <div style="text-align: justify;">
             Pada pemeriksaan MRI atau CT scan, jika tidak ditemukan adanya massa atau pertumbuhan sel abnormal di otak, maka dikatakan tidak ada tumor otak. 
