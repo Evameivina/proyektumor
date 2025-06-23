@@ -175,7 +175,7 @@ elif page == "Deteksi Tumor":
                         "pituitary": "Tumor pituitari merupakan Pertumbuhan abnormal di kelenjar pituitari yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
                         "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
                     }
-                    st.info(f"{definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu *Informasi Tumor*.")
+                    st.info(f"{definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu <strong>*Informasi Tumor*</strong>.")
 
 
         except UnidentifiedImageError:
