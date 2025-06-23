@@ -130,7 +130,7 @@ if page == "Panduan Penggunaan Aplikasi":
     <ul>
         <li>Siapkan gambar MRI otak dalam format JPG, JPEG, atau PNG.</li>
         <li>Pastikan gambar jelas, tidak buram, dan memiliki kualitas baik.</li>
-        <li>Pilih menu <strong>Deteksi Tumor</strong> untuk melihat hasil prediksi.</li>
+        <li>Pilih menu <strong>Deteksi Tumor</strong> untuk analisis dan hasil prediksi.</li>
         <li>Sistem akan memprediksi dan menampilkan apakah terdapat indikasi tumor atau tidak, disertai tingkat kepercayaan dan penjelasan singkat jika tumor terdeteksi.</li>
         <li><strong>Catatan:</strong> Hasil ini hanya sebagai acuan awal. Tetap konsultasikan dengan dokter spesialis untuk kepastian medis.</li>
     </ul>
