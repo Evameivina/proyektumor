@@ -126,7 +126,6 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown('<div class="menu-title">Panduan Penggunaan Aplikasi</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="instruction-box">
-    <h4>Cara Menggunakan Aplikasi</h4>
     
     <ol>
         <li>Siapkan gambar MRI otak dalam format JPG, JPEG, atau PNG.</li>
