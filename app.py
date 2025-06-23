@@ -175,7 +175,7 @@ elif page == "Deteksi Tumor":
                         "pituitary": "Tumor pituitari merupakan pertumbuhan abnormal di kelenjar pituitari yang dapat memengaruhi hormon.",
                         "notumor": "Tidak ditemukan adanya tumor otak berdasarkan gambar MRI yang diunggah."
                     }
-                    st.info(f"\nBerikut sedikit informasi tentang hasil prediksi: {definitions[predicted_class]}")
+                    st.info(f"{definitions[predicted_class]}")
 
         except UnidentifiedImageError:
             st.error("File yang diunggah bukan gambar yang valid.")
