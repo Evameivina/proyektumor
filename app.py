@@ -173,7 +173,7 @@ elif page == "Deteksi Tumor":
                     definitions = {
                         "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
                         "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
-                        "pituitary": "Tumor pituitari merupakan Pertumbuhan abnormal di kelenjar pituitari yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
+                        "pituitary": "Tumor pituitary merupakan Pertumbuhan abnormal di kelenjar pituitary yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
                         "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
                     }
                     st.markdown(f"""
