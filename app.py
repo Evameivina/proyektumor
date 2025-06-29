@@ -237,7 +237,7 @@ elif page == "Informasi Tumor":
         """, unsafe_allow_html=True)
 
     elif pilihan == "pituitary":
-        st.markdown('<div class="menu-title">Tumor Pituitary</div>', unsafe_allow_html=True)
+        st.markdown('<div class="menu-title">Pituitary</div>', unsafe_allow_html=True)
         st.markdown("""
             <div style="text-align: justify;">
             Tumor pituitary adalah pertumbuhan sel abnormal yang terjadi pada kelenjar pituitari, yaitu kelenjar kecil di dasar otak yang berperan penting dalam mengatur berbagai hormon tubuh. 
