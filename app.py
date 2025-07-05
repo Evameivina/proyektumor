@@ -143,11 +143,12 @@ if page == "Panduan Penggunaan Aplikasi":
     <div class="instruction-box">
     <div style="text-align: justify;">
         <ul>
-            <li>Siapkan gambar MRI otak dalam format JPG, JPEG, atau PNG.</li>
-            <li>Pastikan gambar jelas, tidak buram, dan memiliki kualitas baik.</li>
-            <li>Pilih menu <strong>Deteksi Tumor</strong> untuk analisis dan hasil prediksi.</li>
+            <li>Silakan unggah <strong>satu</strong> gambar MRI otak dalam format JPG, JPEG, atau PNG. Sistem ini hanya menerima satu gambar untuk setiap proses deteksi</li>
+            <li>Pastikan gambar jelas, tidak buram, dan memiliki kualitas baik</li>
+            <li>Pilih menu <strong>Deteksi Tumor</strong> untuk memulai analisis dan melihat hasil prediksi</li>
             <li>Sistem akan memprediksi dan menampilkan apakah terdapat indikasi tumor atau tidak, disertai tingkat kepercayaan dan penjelasan singkat jika tumor terdeteksi.</li>
-            <li><strong>Catatan:</strong> Hasil ini hanya sebagai acuan awal. Tetap konsultasikan dengan dokter spesialis untuk kepastian medis.</li>
+            <li>Jika gambar sesuai dan dikenali oleh sistem, maka hasil deteksi akan ditampilkan. Jika tidak, sistem mungkin tidak dapat memprosesnya dengan tepat</li>
+            <li><strong>Catatan:</strong> Hasil ini hanya sebagai referensi awal berbasis kecerdasan buatan. Untuk diagnosis medis yang valid, tetap konsultasikan dengan dokter spesialis.</li>
         </ul>
     </div>
     </div>
