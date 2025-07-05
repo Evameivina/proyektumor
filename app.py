@@ -161,47 +161,57 @@ elif page == "Deteksi Tumor":
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
 
     confidence_threshold = 0.9
-    uploaded_file = st.file_uploader("Mulai analisis dengan mengunggah gambar MRI otak", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader(
+        "Mulai analisis dengan mengunggah satu gambar MRI otak (format JPG, JPEG, atau PNG)",
+        type=["jpg", "jpeg", "png"],
+        accept_multiple_files=False  # Batasi hanya satu file
+    )
 
     if uploaded_file:
-        try:
-            img = Image.open(uploaded_file).convert('RGB')
-            st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
+        file_ext = os.path.splitext(uploaded_file.name)[-1].lower()
+        allowed_ext = ['.jpg', '.jpeg', '.png']
 
-            if not is_probably_mri(img):
-                st.warning("⚠️ Gambar yang Anda unggah kemungkinan besar bukan MRI otak atau tidak valid. Coba unggah gambar lain.")
-            else:
-                img_resized = img.resize((224, 224))
-                img_array = np.array(img_resized) / 255.0
-                img_array = np.expand_dims(img_array, axis=0)
+        if file_ext not in allowed_ext:
+            st.error("Format file tidak didukung. Harap unggah file JPG, JPEG, atau PNG.")
+        else:
+            try:
+                img = Image.open(uploaded_file).convert('RGB')
+                st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
 
-                prediction = model.predict(img_array)
-                pred_index = np.argmax(prediction)
-                confidence = prediction[0][pred_index]
-
-                if confidence < confidence_threshold:
-                    st.warning(f"⚠️ Prediksi tidak meyakinkan. Confidence hanya {confidence:.2f}, mohon unggah gambar lain yang lebih jelas.")
+                if not is_probably_mri(img):
+                    st.warning("⚠️ Gambar yang Anda unggah kemungkinan besar bukan MRI otak atau tidak valid. Coba unggah gambar lain.")
                 else:
-                    predicted_class = class_names[pred_index]
-                    st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
+                    img_resized = img.resize((224, 224))
+                    img_array = np.array(img_resized) / 255.0
+                    img_array = np.expand_dims(img_array, axis=0)
 
-                    definitions = {
-                        "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
-                        "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
-                        "pituitary": "Tumor pituitary merupakan pertumbuhan abnormal di kelenjar pituitary yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
-                        "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
-                    }
-                    st.markdown(f"""
-                    <div style="text-align: justify;">
-                    {definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu <strong>Informasi Tumor</strong>.
-                    </div>
-                    """, unsafe_allow_html=True)
+                    prediction = model.predict(img_array)
+                    pred_index = np.argmax(prediction)
+                    confidence = prediction[0][pred_index]
 
-        except UnidentifiedImageError:
-            st.error("File yang diunggah bukan gambar yang valid.")
-        except Exception as e:
-            st.error(f"Kesalahan saat memproses gambar: {e}")
+                    if confidence < confidence_threshold:
+                        st.warning(f"⚠️ Prediksi tidak meyakinkan. Confidence hanya {confidence:.2f}, mohon unggah gambar lain yang lebih jelas.")
+                    else:
+                        predicted_class = class_names[pred_index]
+                        st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
+
+                        definitions = {
+                            "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
+                            "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
+                            "pituitary": "Tumor pituitary merupakan pertumbuhan abnormal di kelenjar pituitary yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
+                            "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
+                        }
+                        st.markdown(f"""
+                        <div style="text-align: justify;">
+                        {definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu <strong>Informasi Tumor</strong>.
+                        </div>
+                        """, unsafe_allow_html=True)
+
+            except UnidentifiedImageError:
+                st.error("File yang diunggah bukan gambar yang valid.")
+            except Exception as e:
+                st.error(f"Kesalahan saat memproses gambar: {e}")
 
     st.markdown("</div>", unsafe_allow_html=True)
 
