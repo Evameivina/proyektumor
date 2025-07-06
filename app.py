@@ -1,3 +1,10 @@
+st.sidebar.markdown("### Versi Library")
+st.sidebar.text(f"Python: {sys.version}")
+st.sidebar.text(f"TensorFlow: {tf.__version__}")
+st.sidebar.text(f"NumPy: {np.__version__}")
+st.sidebar.text(f"PIL: {PIL.__version__}")
+
+
 import streamlit as st
 import numpy as np
 from PIL import Image, UnidentifiedImageError
