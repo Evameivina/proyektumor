@@ -161,6 +161,7 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Deteksi Tumor ---
+# --- Deteksi Tumor ---
 elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
@@ -170,20 +171,13 @@ elif page == "Deteksi Tumor":
         type=["jpg", "jpeg", "png"]
     )
 
-    def apply_temperature(probabilities, temperature=3.5):
-        logits = np.log(probabilities + 1e-8)
-        scaled_logits = logits / temperature
-        exp_logits = np.exp(scaled_logits)
-        return exp_logits / np.sum(exp_logits, axis=1, keepdims=True)
-
-
     if uploaded_file:
         try:
             img = Image.open(uploaded_file).convert('RGB')
             st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
 
             if not is_probably_mri(img):
-                st.warning("⚠️ Gambar yang diunggah tidak valid dan tidak dapat di deteksi")
+                st.warning("⚠️ Gambar yang diunggah tidak valid dan tidak dapat dideteksi.")
             else:
                 img_resized = img.resize((224, 224))
                 img_array = np.array(img_resized) / 255.0
@@ -192,7 +186,6 @@ elif page == "Deteksi Tumor":
                 prediction = model.predict(img_array)
                 pred_index = np.argmax(prediction)
                 confidence = float(prediction[0][pred_index])
-
 
                 if confidence < 0.6:
                     st.warning(f"⚠️ Prediksi tidak meyakinkan (Confidence: {confidence:.2f}). Silakan coba unggah gambar lain yang lebih jelas.")
@@ -220,7 +213,6 @@ elif page == "Deteksi Tumor":
                         Untuk informasi lebih lengkap, silakan buka menu <strong>Informasi Tumor</strong>.
                     </div>
                     """, unsafe_allow_html=True)
-
 
         except UnidentifiedImageError:
             st.error("⚠️ File yang diunggah bukan gambar yang valid.")
