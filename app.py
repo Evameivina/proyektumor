@@ -170,9 +170,8 @@ elif page == "Deteksi Tumor":
         type=["jpg", "jpeg", "png"]
     )
 
-    # Fungsi temperature scaling untuk membuat confidence lebih realistis
     def apply_temperature(probabilities, temperature=2.0):
-        logits = np.log(probabilities + 1e-8)  # Tambahkan epsilon kecil untuk hindari log(0)
+        logits = np.log(probabilities + 1e-8)
         scaled_logits = logits / temperature
         exp_logits = np.exp(scaled_logits)
         return exp_logits / np.sum(exp_logits, axis=1, keepdims=True)
@@ -180,25 +179,20 @@ elif page == "Deteksi Tumor":
     if uploaded_file:
         try:
             img = Image.open(uploaded_file).convert('RGB')
-            st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
+            st.image(img, caption='Gambar yang Diunggah', use_container_width=True)
 
             if not is_probably_mri(img):
                 st.warning("⚠️ Gambar yang diunggah kemungkinan besar bukan MRI otak atau tidak valid.")
             else:
-                # Preprocessing gambar
                 img_resized = img.resize((224, 224))
                 img_array = np.array(img_resized) / 255.0
                 img_array = np.expand_dims(img_array, axis=0)
 
-                # Prediksi model
                 prediction = model.predict(img_array)
-
-                # Gunakan temperature scaling
                 scaled_pred = apply_temperature(prediction, temperature=2.0)
                 pred_index = np.argmax(scaled_pred)
                 confidence = float(scaled_pred[0][pred_index])
 
-                # Ambang batas confidence
                 if confidence < 0.6:
                     st.warning(f"⚠️ Prediksi tidak meyakinkan (Confidence: {confidence:.2f}). Silakan coba unggah gambar lain yang lebih jelas.")
                 else:
@@ -206,32 +200,31 @@ elif page == "Deteksi Tumor":
                     st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
                     st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
 
-                    # Penjelasan tentang confidence
-                    st.caption("""
-                    🔍 *Tingkat kepercayaan (confidence)* menunjukkan seberapa yakin model terhadap prediksi yang diberikan.
-                    Nilai ini berasal dari hasil perhitungan model terhadap seberapa mirip gambar MRI yang diunggah dengan data pelatihan.
-                    Semakin tinggi angkanya (maksimal 1.00), semakin besar keyakinan model bahwa hasil prediksi tersebut benar.
-                    Namun, hasil ini tidak menggantikan diagnosis medis secara langsung.
-                    """)
-
-                    # Definisi jenis tumor
-                    definitions = {
-                        "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
-                        "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
-                        "pituitary": "Tumor pituitary merupakan pertumbuhan abnormal di kelenjar pituitary yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
-                        "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
+                    explanations = {
+                        "glioma": "Glioma adalah tumor otak yang berasal dari sel glia. Bisa bersifat jinak maupun ganas, dan merupakan salah satu jenis yang paling umum ditemukan.",
+                        "meningioma": "Meningioma adalah tumor jinak yang tumbuh di selaput pelindung otak. Umumnya tumbuh lambat, tetapi bisa menekan jaringan otak.",
+                        "pituitary": "Tumor pituitary muncul di kelenjar pituitari dan dapat memengaruhi produksi hormon tubuh. Sebagian besar bersifat jinak.",
+                        "notumor": "Tidak ditemukan indikasi adanya tumor otak pada gambar yang diunggah. Namun, tetap disarankan konsultasi ke dokter jika ada gejala."
                     }
 
                     st.markdown(f"""
-                    <div style="text-align: justify;">
-                    {definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu <strong>Informasi Tumor</strong>.
+                    <div style="text-align: justify; margin-top: 1.2rem;">
+                        <strong>Tingkat Kepercayaan (Confidence)</strong><br>
+                        Nilai ini menunjukkan seberapa yakin model terhadap hasil prediksi, berdasarkan kemiripan gambar MRI yang diunggah dengan data pelatihan.
+                        Semakin tinggi nilainya (maksimal 1.00), semakin besar keyakinan model terhadap hasil tersebut.
+                        Hasil ini bersifat prediktif dan tidak menggantikan diagnosis medis resmi.
+                        <br><br>
+                        <strong>Penjelasan Singkat:</strong><br>
+                        {explanations[predicted_class]}
+                        Untuk informasi lebih lengkap, silakan buka menu <strong>Informasi Tumor</strong>.
                     </div>
                     """, unsafe_allow_html=True)
 
+
         except UnidentifiedImageError:
-            st.error("❌ File yang diunggah bukan gambar yang valid.")
+            st.error("⚠️ File yang diunggah bukan gambar yang valid.")
         except Exception as e:
-            st.error(f"❌ Kesalahan saat memproses gambar: {e}")
+            st.error(f"⚠️ Kesalahan saat memproses gambar: {e}")
 
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -317,5 +310,3 @@ elif page == "Informasi Tumor":
 
 
     st.markdown("</div>", unsafe_allow_html=True)
-
-
