@@ -156,6 +156,7 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Deteksi Tumor ---
+# --- Deteksi Tumor ---
 elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
@@ -163,23 +164,21 @@ elif page == "Deteksi Tumor":
     confidence_threshold = 0.9
     uploaded_file = st.file_uploader(
         "Mulai analisis dengan mengunggah satu gambar MRI otak (format JPG, JPEG, atau PNG)",
-        type=["jpg", "jpeg", "png"],
-        accept_multiple_files=False  # Batasi hanya satu file
-    )
+        type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
     if uploaded_file:
         file_ext = os.path.splitext(uploaded_file.name)[-1].lower()
         allowed_ext = ['.jpg', '.jpeg', '.png']
 
         if file_ext not in allowed_ext:
-            st.error("Format file tidak didukung. Harap unggah file JPG, JPEG, atau PNG.")
+            st.error("Format file tidak didukung.")
         else:
             try:
                 img = Image.open(uploaded_file).convert('RGB')
                 st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
 
                 if not is_probably_mri(img):
-                    st.warning("⚠️ Gambar yang Anda unggah kemungkinan besar bukan MRI otak atau tidak valid. Coba unggah gambar lain.")
+                    st.warning("⚠️ Gambar ini kemungkinan besar bukan MRI otak.")
                 else:
                     img_resized = img.resize((224, 224))
                     img_array = np.array(img_resized) / 255.0
@@ -189,27 +188,43 @@ elif page == "Deteksi Tumor":
                     pred_index = np.argmax(prediction)
                     confidence = prediction[0][pred_index]
 
+                    # --- Distribusi Probabilitas ---
+                    st.subheader("Distribusi Probabilitas Prediksi:")
+                    for i, label in enumerate(class_names):
+                        st.write(f"🔹 {label.capitalize():10}: {prediction[0][i]:.4f}")
+
+                    fig, ax = plt.subplots()
+                    ax.bar(class_names, prediction[0], color='mediumseagreen')
+                    ax.set_ylabel("Confidence")
+                    ax.set_ylim(0, 1)
+                    ax.set_title("Confidence Tiap Kelas")
+                    st.pyplot(fig)
+
+                    st.caption(
+                        "⚠️ Catatan: Nilai confidence menunjukkan seberapa yakin model terhadap prediksi. "
+                        "Confidence tinggi tidak berarti hasil pasti benar. Tetap konsultasikan dengan dokter.")
+
                     if confidence < confidence_threshold:
-                        st.warning(f"⚠️ Prediksi tidak meyakinkan. Confidence hanya {confidence:.2f}, mohon unggah gambar lain yang lebih jelas.")
+                        st.warning(f"⚠️ Confidence hanya {confidence:.2f}. Coba unggah gambar lain yang lebih jelas.")
                     else:
                         predicted_class = class_names[pred_index]
                         st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
                         st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
 
                         definitions = {
-                            "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
-                            "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
-                            "pituitary": "Tumor pituitary merupakan pertumbuhan abnormal di kelenjar pituitary yang umumnya jinak, namun bisa memengaruhi hormon dan fungsi saraf sekitarnya.",
-                            "notumor": "Tidak terdeteksi adanya tumor otak pada hasil MRI. Meski begitu, pemeriksaan lanjutan tetap disarankan jika ada gejala."
+                            "glioma": "Glioma berasal dari sel glia, dapat jinak atau ganas.",
+                            "meningioma": "Meningioma tumbuh lambat di meninges, sering jinak.",
+                            "pituitary": "Tumor pituitary tumbuh di kelenjar pituitari dan bisa mengganggu hormon.",
+                            "notumor": "Tidak ditemukan tumor. Tetap konsultasi jika ada gejala."
                         }
                         st.markdown(f"""
                         <div style="text-align: justify;">
-                        {definitions[predicted_class]} Untuk informasi lebih lengkap, silakan buka menu <strong>Informasi Tumor</strong>.
+                        {definitions[predicted_class]} Untuk info lebih lanjut, buka menu <strong>Informasi Tumor</strong>.
                         </div>
                         """, unsafe_allow_html=True)
 
             except UnidentifiedImageError:
-                st.error("File yang diunggah bukan gambar yang valid.")
+                st.error("File yang diunggah bukan gambar valid.")
             except Exception as e:
                 st.error(f"Kesalahan saat memproses gambar: {e}")
 
