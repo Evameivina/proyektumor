@@ -96,11 +96,16 @@ if not os.path.exists(model_path):
             st.error("Gagal mengunduh model.")
             st.stop()
 
-try:
-    model = load_model(model_path)
-except Exception as e:
-    st.error(f"Gagal memuat model: {e}")
-    st.stop()
+@st.cache_resource
+def load_cached_model():
+    try:
+        return load_model(model_path)
+    except Exception as e:
+        st.error(f"Gagal memuat model: {e}")
+        st.stop()
+
+model = load_cached_model()
+
 
 # --- MRI Check ---
 def is_probably_mri(image_pil):
@@ -155,7 +160,6 @@ if page == "Panduan Penggunaan Aplikasi":
     """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# --- Deteksi Tumor ---
 # --- Deteksi Tumor ---
 elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
