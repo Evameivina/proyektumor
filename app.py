@@ -190,8 +190,9 @@ elif page == "Deteksi Tumor":
                 img_array = np.expand_dims(img_array, axis=0)
 
                 prediction = model.predict(img_array)
-                pred_index = np.argmax(scaled_pred)
-                confidence = float(scaled_pred[0][pred_index])
+                pred_index = np.argmax(prediction)
+                confidence = float(prediction[0][pred_index])
+
 
                 if confidence < 0.6:
                     st.warning(f"⚠️ Prediksi tidak meyakinkan (Confidence: {confidence:.2f}). Silakan coba unggah gambar lain yang lebih jelas.")
