@@ -190,7 +190,6 @@ elif page == "Deteksi Tumor":
                 img_array = np.expand_dims(img_array, axis=0)
 
                 prediction = model.predict(img_array)
-                scaled_pred = apply_temperature(prediction, temperature=2.0)
                 pred_index = np.argmax(scaled_pred)
                 confidence = float(scaled_pred[0][pred_index])
 
