@@ -179,11 +179,7 @@ elif page == "Deteksi Tumor":
     if uploaded_file:
         try:
             img = Image.open(uploaded_file).convert('RGB')
-            st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-            st.image(img, caption='Gambar yang Diunggah')
-            st.markdown("</div>", unsafe_allow_html=True)
-
-
+            st.image(img, caption='Gambar yang Diunggah', use_column_width=True)
 
             if not is_probably_mri(img):
                 st.warning("⚠️ Gambar yang diunggah tidak valid dan tidak dapat di deteksi")
