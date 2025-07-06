@@ -170,11 +170,12 @@ elif page == "Deteksi Tumor":
         type=["jpg", "jpeg", "png"]
     )
 
-    def apply_temperature(probabilities, temperature=2.0):
+    def apply_temperature(probabilities, temperature=3.5):
         logits = np.log(probabilities + 1e-8)
         scaled_logits = logits / temperature
         exp_logits = np.exp(scaled_logits)
         return exp_logits / np.sum(exp_logits, axis=1, keepdims=True)
+
 
     if uploaded_file:
         try:
