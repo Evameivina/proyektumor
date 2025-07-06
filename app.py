@@ -160,7 +160,10 @@ elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("Mulai analisis dengan mengunggah satu gambar MRI otak (JPG, JPEG, atau PNG)", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader(
+        "Mulai analisis dengan mengunggah satu gambar MRI otak (JPG, JPEG, atau PNG)",
+        type=["jpg", "jpeg", "png"]
+    )
 
     if uploaded_file:
         try:
@@ -170,15 +173,17 @@ elif page == "Deteksi Tumor":
             if not is_probably_mri(img):
                 st.warning("⚠️ Gambar yang diunggah kemungkinan besar bukan MRI otak atau tidak valid.")
             else:
+                # Preprocessing gambar
                 img_resized = img.resize((224, 224))
                 img_array = np.array(img_resized) / 255.0
                 img_array = np.expand_dims(img_array, axis=0)
 
+                # Prediksi model
                 prediction = model.predict(img_array)
                 pred_index = np.argmax(prediction)
                 confidence = prediction[0][pred_index]
 
-                # Ambang batas confidence (misalnya 0.6)
+                # Ambang batas confidence
                 if confidence < 0.6:
                     st.warning(f"⚠️ Prediksi tidak meyakinkan (Confidence: {confidence:.2f}). Silakan coba unggah gambar lain yang lebih jelas.")
                 else:
@@ -186,6 +191,15 @@ elif page == "Deteksi Tumor":
                     st.markdown(f'<div class="prediction-success">Jenis tumor terdeteksi: <strong>{predicted_class.upper()}</strong></div>', unsafe_allow_html=True)
                     st.markdown(f'<div class="prediction-info">Tingkat kepercayaan: <strong>{confidence:.2f}</strong></div>', unsafe_allow_html=True)
 
+                    # Penjelasan tentang confidence
+                    st.caption("""
+                    🔍 *Tingkat kepercayaan (confidence)* menunjukkan seberapa yakin model terhadap prediksi yang diberikan.
+                    Nilai ini berasal dari hasil perhitungan model terhadap seberapa mirip gambar MRI yang diunggah dengan data pelatihan.
+                    Semakin tinggi angkanya (maksimal 1.00), semakin besar keyakinan model bahwa hasil prediksi tersebut benar.
+                    Namun, hasil ini tidak menggantikan diagnosis medis secara langsung.
+                    """)
+
+                    # Definisi jenis tumor
                     definitions = {
                         "glioma": "Glioma adalah tumor otak yang berasal dari sel glia, bisa jinak atau ganas, dan merupakan salah satu tumor otak primer yang paling umum.",
                         "meningioma": "Meningioma adalah tumor jinak yang tumbuh lambat di meninges (lapisan pelindung otak), dapat membesar dan menekan jaringan otak.",
