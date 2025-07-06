@@ -182,7 +182,7 @@ elif page == "Deteksi Tumor":
             st.image(img, caption='Gambar yang Diunggah', use_container_width=True)
 
             if not is_probably_mri(img):
-                st.warning("⚠️ Gambar yang diunggah kemungkinan besar bukan MRI otak atau tidak valid.")
+                st.warning("⚠️ Gambar yang diunggah tidak valid dan tidak dapat di deteksi")
             else:
                 img_resized = img.resize((224, 224))
                 img_array = np.array(img_resized) / 255.0
@@ -310,3 +310,4 @@ elif page == "Informasi Tumor":
 
 
     st.markdown("</div>", unsafe_allow_html=True)
+
