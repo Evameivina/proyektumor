@@ -156,6 +156,7 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Deteksi Tumor ---
+# --- Deteksi Tumor ---
 elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
@@ -164,6 +165,13 @@ elif page == "Deteksi Tumor":
         "Mulai analisis dengan mengunggah satu gambar MRI otak (JPG, JPEG, atau PNG)",
         type=["jpg", "jpeg", "png"]
     )
+
+    # Fungsi temperature scaling untuk membuat confidence lebih realistis
+    def apply_temperature(probabilities, temperature=2.0):
+        logits = np.log(probabilities + 1e-8)  # Tambahkan epsilon kecil untuk hindari log(0)
+        scaled_logits = logits / temperature
+        exp_logits = np.exp(scaled_logits)
+        return exp_logits / np.sum(exp_logits, axis=1, keepdims=True)
 
     if uploaded_file:
         try:
@@ -180,8 +188,11 @@ elif page == "Deteksi Tumor":
 
                 # Prediksi model
                 prediction = model.predict(img_array)
-                pred_index = np.argmax(prediction)
-                confidence = prediction[0][pred_index]
+
+                # Gunakan temperature scaling
+                scaled_pred = apply_temperature(prediction, temperature=2.0)
+                pred_index = np.argmax(scaled_pred)
+                confidence = float(scaled_pred[0][pred_index])
 
                 # Ambang batas confidence
                 if confidence < 0.6:
