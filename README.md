@@ -34,7 +34,7 @@ Setiap informasi mencakup pengertian, gejala, metode diagnosis, penanganan, dan 
 
 Model dilatih menggunakan dua dataset publik dari Kaggle:
 
-- [Brain Tumor Classification MRI - Sartaj Bhuvaji](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri)  
+- [Brain Tumor Classification MRI - Sartaj](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri)  
 - [Brain Tumor MRI Dataset - Masoud Nickparvar](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset)
 
 ## Kelas yang Terdeteksi
