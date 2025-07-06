@@ -10,6 +10,15 @@ from PIL import Image, UnidentifiedImageError
 from tensorflow.keras.models import load_model
 import gdown
 import os
+import sys
+import PIL
+
+st.sidebar.markdown("### Versi Library")
+st.sidebar.write("Python:", sys.version.split()[0])
+st.sidebar.write("TensorFlow:", tf.__version__)
+st.sidebar.write("NumPy:", np.__version__)
+st.sidebar.write("Pillow (PIL):", PIL.__version__)
+
 
 # --- Page configuration ---
 st.set_page_config(page_title="Brain Tumor Detection", layout="wide")
