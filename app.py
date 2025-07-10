@@ -161,7 +161,6 @@ if page == "Panduan Penggunaan Aplikasi":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Deteksi Tumor ---
-# --- Deteksi Tumor ---
 elif page == "Deteksi Tumor":
     st.markdown('<div class="main">', unsafe_allow_html=True)
     st.markdown('<div class="menu-title">Deteksi Tumor Otak</div>', unsafe_allow_html=True)
