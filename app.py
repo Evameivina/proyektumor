@@ -309,4 +309,3 @@ elif page == "Informasi Tumor":
 
 
     st.markdown("</div>", unsafe_allow_html=True)
-
