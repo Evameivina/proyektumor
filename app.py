@@ -84,7 +84,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Download and Load Model ---
-file_id = '153Pi99NMlc7e-YgHw1V7mW5GZV_B9QJq'
+file_id = '1YB0eHxc8gLIavADkqjXCS0llIKA8V7Nl'
 download_url = f'https://drive.google.com/uc?id={file_id}'
 model_path = "brain_tumor_model.h5"
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
@@ -309,3 +309,4 @@ elif page == "Informasi Tumor":
 
 
     st.markdown("</div>", unsafe_allow_html=True)
+
